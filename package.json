@@ -1,0 +1,15 @@
+{
+  "name": "aftershock",
+  "version": "0.1.0",
+  "description": "Aftershock: an auditable agent that measures how retracted trials change published meta-analyses",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "setup": "npx --yes degit meterless/meterless/engines/hmem/reference vendor/hmem && cd vendor/hmem && npm install --no-audit --no-fund",
+    "test": "node --experimental-strip-types --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
+  }
+}

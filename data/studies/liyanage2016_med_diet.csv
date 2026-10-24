@@ -1,21 +1,21 @@
 review_doi,outcome,study,study_doi,treat_events,treat_n,ctrl_events,ctrl_n
 10.1371/journal.pone.0159252,MACE,Estruch 2013 (PREDIMED),10.1056/NEJMoa1200303,179,4997,109,2450
 10.1371/journal.pone.0159252,MACE,de Lorgeril 1994,,8,302,36,303
-10.1371/journal.pone.0159252,MACE,Singh 2002,,49,499,96,501
+10.1371/journal.pone.0159252,MACE,Singh 2002,10.1016/S0140-6736(02)11472-3,49,499,96,501
 10.1371/journal.pone.0159252,CVD mortality,Estruch 2013 (PREDIMED),10.1056/NEJMoa1200303,57,4997,30,2450
 10.1371/journal.pone.0159252,CVD mortality,Burr 2003,,86,807,67,764
 10.1371/journal.pone.0159252,CVD mortality,de Lorgeril 1994,,3,302,16,303
-10.1371/journal.pone.0159252,CVD mortality,Singh 2002,,20,499,36,501
+10.1371/journal.pone.0159252,CVD mortality,Singh 2002,10.1016/S0140-6736(02)11472-3,20,499,36,501
 10.1371/journal.pone.0159252,Coronary events,Estruch 2013 (PREDIMED),10.1056/NEJMoa1200303,68,4997,38,2450
 10.1371/journal.pone.0159252,Coronary events,de Lorgeril 1994,,5,302,17,303
-10.1371/journal.pone.0159252,Coronary events,Singh 2002,,33,499,60,501
+10.1371/journal.pone.0159252,Coronary events,Singh 2002,10.1016/S0140-6736(02)11472-3,33,499,60,501
 10.1371/journal.pone.0159252,Stroke,Estruch 2013 (PREDIMED),10.1056/NEJMoa1200303,81,4997,58,2450
 10.1371/journal.pone.0159252,Stroke,de Lorgeril 1994,,0,302,3,303
-10.1371/journal.pone.0159252,Stroke,Singh 2002,,9,499,16,501
+10.1371/journal.pone.0159252,Stroke,Singh 2002,10.1016/S0140-6736(02)11472-3,9,499,16,501
 10.1371/journal.pone.0159252,Heart failure,de Lorgeril 1994,,2,302,8,303
-10.1371/journal.pone.0159252,Heart failure,Singh 2002,,11,499,35,501
+10.1371/journal.pone.0159252,Heart failure,Singh 2002,10.1016/S0140-6736(02)11472-3,11,499,35,501
 10.1371/journal.pone.0159252,All-cause mortality,Estruch 2013 (PREDIMED),10.1056/NEJMoa1200303,234,4997,114,2450
 10.1371/journal.pone.0159252,All-cause mortality,Burr 2003,,142,807,109,764
 10.1371/journal.pone.0159252,All-cause mortality,de Lorgeril 1994,,8,302,20,303
 10.1371/journal.pone.0159252,All-cause mortality,Ng 2011,,1,25,3,23
-10.1371/journal.pone.0159252,All-cause mortality,Singh 2002,,24,499,38,501
+10.1371/journal.pone.0159252,All-cause mortality,Singh 2002,10.1016/S0140-6736(02)11472-3,24,499,38,501

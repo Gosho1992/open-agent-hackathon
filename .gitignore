@@ -5,3 +5,5 @@ zetaris-platform/
 node_modules/
 s*.txt
 status.txt
+vendor/
+.aftershock/
