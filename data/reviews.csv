@@ -1,0 +1,5 @@
+review_doi,short_name,title,journal,year,open_access,role,questioned_trials,notes
+10.1371/journal.pone.0159252,Liyanage 2016,Effects of the Mediterranean Diet on Cardiovascular Outcomes - A Systematic Review and Meta-Analysis,PLoS One,2016,yes (CC BY),headline demo,"Estruch 2013 PREDIMED (retracted and replaced 2018); Singh 2002 (expression of concern, Lancet 2005)",Per-study counts are printed on Fig 2 (data/raw/liyanage2016_fig2_forest.png). Fixed-effect Mantel-Haenszel RR.
+10.1001/archinte.166.12.1256,Cockayne 2006,Vitamin K and the prevention of fractures,Arch Intern Med,2006,check,second case,3 trials from one centre (retracted),Peto OR. Answer key: 0.23 (0.11-0.46) -> 0.30 (0.05-1.71). Per-study counts still to source.
+10.1016/j.cmi.2022.04.018,Lee 2022,Remdesivir meta-analysis,Clin Microbiol Infect,2022,check,HOLDS control,1 retracted trial,Random REML RR. Answer key: 0.933 -> 0.93.
+10.1097/MJT.0000000000001402,Bryant 2021,Ivermectin for COVID-19,Am J Ther,2021,yes,evaluation set,Elgazzar 2020 (withdrawn) + 1 other,Random IV RR. Death: 0.378 -> 0.51 (0.28-0.94).

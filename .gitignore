@@ -1,0 +1,7 @@
+zetaris-platform.zip
+zetaris-platform/
+.env
+.env.local
+node_modules/
+s*.txt
+status.txt
