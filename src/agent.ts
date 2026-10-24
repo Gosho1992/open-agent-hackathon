@@ -45,8 +45,8 @@ export interface CaseResult {
   reason?: string;
 }
 
-const EXTRACT_MODEL = process.env.EXTRACT_MODEL ?? "meterless/vision";
-const REPORT_MODEL = process.env.REPORT_MODEL ?? "meterless/text.deep";
+const EXTRACT_MODEL = process.env.EXTRACT_MODEL ?? "openrouter/inclusionai/ling-3.0-flash-vl:free";
+const REPORT_MODEL = process.env.REPORT_MODEL ?? "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free";
 const MODE = process.env.EXTRACTION ?? "vision";   // "vision" | "curated"
 const TOL = 0.011;                                  // published numbers are printed to 2 decimals
 

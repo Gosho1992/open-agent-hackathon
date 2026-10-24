@@ -69,10 +69,14 @@ export async function chat(role: string, model: string, messages: ChatMessage[],
   const msg = body.choices?.[0]?.message;
   const text = typeof msg?.content === "string" ? msg.content : (msg?.content ?? []).map((p: any) => p.text ?? "").join("");
   // Nightshift may report the serving model in a meterless block; fall back to the OpenAI field.
-  const served = body.meterless?.model ?? body.meterless?.served_by ?? body.model ?? model;
-  const provider = body.meterless?.provider ?? body.provider ?? (BASE.includes("127.0.0.1") || BASE.includes("localhost") ? "nightshift" : new URL(BASE).host);
+  // Nightshift returns a signed compute receipt (meterless.compute_receipt.v1) naming the winning route.
+  const win = body.meterless?.winning_route;
+  const served = win?.model ?? body.meterless?.routed_model ?? body.model ?? model;
+  const provider = win ? `nightshift->${win.provider}` : (body.provider ?? new URL(BASE).host);
+  const receipt = body.meterless?.receipt_id ?? null;
+  const signed = Boolean(body.meterless?.receipt_envelope?.sig_b64);
   if (!text.trim()) throw new Error(`empty response from ${served}`);
-  trace("llm", { role, requested: model, model: served, provider, ms });
+  trace("llm", { role, requested: model, model: served, label: win?.label ?? null, provider, receipt, signed, ms });
   const out: ChatResult = { text, model: served, provider, ms, replayed: false };
   if (RECORD) { fs.mkdirSync(FIXTURES, { recursive: true }); fs.writeFileSync(file, JSON.stringify(out, null, 2)); }
   return out;
