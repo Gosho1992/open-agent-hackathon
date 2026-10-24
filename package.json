@@ -7,7 +7,9 @@
   "type": "module",
   "scripts": {
     "setup": "npx --yes degit meterless/meterless/engines/hmem/reference vendor/hmem && cd vendor/hmem && npm install --no-audit --no-fund",
-    "test": "node --experimental-strip-types --test test/*.test.ts"
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "audit": "tsx --env-file-if-exists=.env src/cli.ts audit",
+    "policy": "tsx --env-file-if-exists=.env src/cli.ts policy"
   },
   "devDependencies": {
     "tsx": "^4.23.15"

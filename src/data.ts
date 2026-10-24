@@ -18,7 +18,7 @@ export interface Review { review_doi: string; short_name: string; title: string;
 export interface PublishedPooled { review_doi: string; outcome: string; scenario: string; method: string; measure: string; es: number; lci: number; uci: number; source: string }
 export interface AnswerKeyRow { doi: string; methods: string; effectsize: string; noofstudies: number; noofretraction: number; all_es: number; all_lci: number; all_uci: number; exclude_es: number; exclude_lci: number; exclude_uci: number; status: string }
 
-const SAMPLE = process.env.SAMPLE_MODE === "true";
+const SAMPLE = process.env.SAMPLE_MODE === "true" || process.env.DATA_SOURCE === "csv";
 const DATA = path.resolve("data");
 const REST = (process.env.ZETARIS_REST_URL ?? "http://localhost:8888/api/v1.0").replace(/\/+$/, "");
 const ORG = process.env.ZETARIS_ORG_ID ?? "1";
