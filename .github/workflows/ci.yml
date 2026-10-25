@@ -17,6 +17,6 @@ jobs:
       - name: Recovery demo (fault injected, gate rejects, re-read passes)
         run: SAMPLE_MODE=true EXTRACTION=curated npm run audit -- --outcome Stroke --corrupt
       - name: Verify the hash chain of every trace produced
-        run: for f in .aftershock/traces/*.jsonl; do npm run -s verify-trace -- "$f"; done
+        run: shopt -s nullglob; for f in .aftershock/traces/*.jsonl; do npm run -s verify-trace -- "$f"; done
       - name: Verify the committed evidence traces
-        run: for f in evidence/traces/*.jsonl; do [ -e "$f" ] && npm run -s verify-trace -- "$f"; done
+        run: shopt -s nullglob; for f in evidence/traces/*.jsonl; do npm run -s verify-trace -- "$f"; done
