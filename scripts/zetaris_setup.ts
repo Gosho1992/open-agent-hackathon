@@ -23,10 +23,10 @@ const NS = "lightning.metastore.aftershock";
 const USL = `${NS}.evidence`;
 const log: string[] = ["# Zetaris setup log", "", `Run ${new Date().toISOString()} against ${REST}`, ""];
 
-async function sql(stmt: string, { allowFail = false } = {}): Promise<any> {
+async function sql(stmt: string, { allowFail = false, strict = false } = {}): Promise<any> {
   const r = await zquery(stmt, 20);
   const text = r.raw;
-  const ok = r.ok || /already exist/i.test(text);   // re-runs are idempotent
+  const ok = r.ok || (!strict && /already exist/i.test(text));   // re-runs are idempotent
   log.push("```sql", stmt.trim(), "```", `→ ${ok ? "OK" : "FAILED (HTTP " + r.status + ")"} ${text.slice(0, 400).replace(/\n/g, " ")}`, "");
   console.log(`${ok ? "OK  " : "FAIL"} ${stmt.trim().split("\n")[0].slice(0, 90)}${ok ? "" : "\n     " + text.slice(0, 1500)}`);
   if (!ok && !allowFail) { flush(); throw new Error(`Zetaris: HTTP ${r.status} ${text.slice(0, 300)}`); }
@@ -52,6 +52,7 @@ console.log("copied CSVs into the Zetaris file store");
 // ---- 2. raw sources ----
 await sql(`CREATE LIGHTNING DATABASE ${RAW} DESCRIBE BY "Aftershock raw evidence sources"`, { allowFail: true });
 for (const [t, f] of Object.entries(files)) {
+  await sql(`DROP VIEW IF EXISTS ${RAW}.${t}`, { allowFail: true });
   await sql(`CREATE LIGHTNING FILESTORE TABLE ${t} FROM ${RAW} FORMAT CSV OPTIONS (PATH "${STORE}/${path.basename(f)}", header "true", inferSchema "false", multiLine "true", escape '"')`);
 }
 const [cnt] = await sql(`SELECT count(*) AS n FROM ${RAW}.rw_raw`);
@@ -60,6 +61,7 @@ console.log(`     Retraction Watch rows in Zetaris: ${cnt?.n ?? JSON.stringify(c
 // ---- 3. Unified Semantic Layer ----
 await sql(`CREATE NAMESPACE lightning.metastore`, { allowFail: true });
 await sql(`CREATE NAMESPACE ${NS}`, { allowFail: true });
+for (const d of [`DROP USL ${USL}`, `DROP USL evidence FROM NAMESPACE ${NS}`, `DROP USL evidence IN NAMESPACE ${NS}`]) await sql(d, { allowFail: true });
 await sql(`COMPILE USL evidence DEPLOY NAMESPACE ${NS} DDL
 CREATE TABLE review (
   review_doi varchar(100) NOT NULL PRIMARY KEY,
@@ -72,6 +74,8 @@ CREATE TABLE review (
 CREATE TABLE retraction (
   record_id int NOT NULL PRIMARY KEY,
   original_doi varchar(200),
+  original_pmid varchar(20),
+  notice_doi varchar(200),
   title varchar(1000),
   journal varchar(300),
   notice varchar(60),
@@ -84,6 +88,7 @@ CREATE TABLE study_outcome (
   outcome varchar(100),
   study varchar(200),
   study_doi varchar(200),
+  study_pmid varchar(20),
   treat_events int,
   treat_n int,
   ctrl_events int,
@@ -98,11 +103,18 @@ CREATE TABLE published_estimate (
   measure varchar(10),
   es double,
   lci double,
-  uci double
+  uci double,
+  printed_treat_events int,
+  printed_treat_n int,
+  printed_ctrl_events int,
+  printed_ctrl_n int,
+  vitality_key varchar(40)
 );
 CREATE TABLE vitality_reanalysis (
   row_id varchar(400) NOT NULL PRIMARY KEY,
   doi varchar(200),
+  srfile varchar(20),
+  meta_id varchar(10),
   replication varchar(30),
   method varchar(30),
   measure varchar(10),
@@ -115,26 +127,28 @@ CREATE TABLE vitality_reanalysis (
   exclude_es double,
   exclude_lci double,
   exclude_uci double
-)`);
+)`, { strict: true });
 
 const T = (t: string) => `${USL}.${t}`;
 await sql(`ACTIVATE USL TABLE ${T("review")} AS
 SELECT COALESCE(CAST(review_doi AS STRING), '') AS review_doi, short_name, title, journal, CAST(year AS INT) AS year, role FROM ${RAW}.reviews_raw`);
 await sql(`ACTIVATE USL TABLE ${T("retraction")} AS
-SELECT COALESCE(CAST(Record_ID AS INT), 0) AS record_id, lower(OriginalPaperDOI) AS original_doi, Title AS title, Journal AS journal,
+SELECT COALESCE(CAST(Record_ID AS INT), 0) AS record_id, lower(OriginalPaperDOI) AS original_doi, trim(OriginalPaperPubMedID) AS original_pmid, lower(RetractionDOI) AS notice_doi, Title AS title, Journal AS journal,
   CASE WHEN RetractionNature = 'Retraction' AND Reason LIKE '%Retract and Replace%' THEN 'Retract and replace' ELSE RetractionNature END AS notice,
   RetractionDate AS notice_date, Reason AS reason
 FROM ${RAW}.rw_raw`);
 await sql(`ACTIVATE USL TABLE ${T("study_outcome")} AS
-SELECT COALESCE(concat(review_doi, '|', outcome, '|', study), '') AS row_id, review_doi, outcome, study, lower(study_doi) AS study_doi,
+SELECT COALESCE(concat(review_doi, '|', outcome, '|', study), '') AS row_id, review_doi, outcome, study, lower(study_doi) AS study_doi, trim(study_pmid) AS study_pmid,
   CAST(treat_events AS INT) AS treat_events, CAST(treat_n AS INT) AS treat_n, CAST(ctrl_events AS INT) AS ctrl_events, CAST(ctrl_n AS INT) AS ctrl_n
 FROM ${RAW}.studies_raw`);
 await sql(`ACTIVATE USL TABLE ${T("published_estimate")} AS
 SELECT COALESCE(concat(review_doi, '|', outcome, '|', scenario), '') AS row_id, review_doi, outcome, scenario, method, measure,
-  CAST(es AS DOUBLE) AS es, CAST(lci AS DOUBLE) AS lci, CAST(uci AS DOUBLE) AS uci
+  CAST(es AS DOUBLE) AS es, CAST(lci AS DOUBLE) AS lci, CAST(uci AS DOUBLE) AS uci,
+  CAST(printed_treat_events AS INT) AS printed_treat_events, CAST(printed_treat_n AS INT) AS printed_treat_n,
+  CAST(printed_ctrl_events AS INT) AS printed_ctrl_events, CAST(printed_ctrl_n AS INT) AS printed_ctrl_n, vitality_key
 FROM ${RAW}.pooled_raw`);
 await sql(`ACTIVATE USL TABLE ${T("vitality_reanalysis")} AS
-SELECT COALESCE(concat_ws('|', status, srfile, meta_id, subid, rank), '') AS row_id, lower(doi) AS doi, status AS replication, methods AS method,
+SELECT COALESCE(concat_ws('|', status, srfile, meta_id, subid, rank), '') AS row_id, lower(doi) AS doi, srfile, meta_id, status AS replication, methods AS method,
   effectsize AS measure, type AS analysis_type, CAST(noofstudies AS INT) AS n_studies, CAST(noofretraction AS INT) AS n_retracted,
   CAST(all_es AS DOUBLE) AS all_es, CAST(all_lci AS DOUBLE) AS all_lci, CAST(all_uci AS DOUBLE) AS all_uci,
   CAST(exclude_es AS DOUBLE) AS exclude_es, CAST(exclude_lci AS DOUBLE) AS exclude_lci, CAST(exclude_uci AS DOUBLE) AS exclude_uci
@@ -145,6 +159,8 @@ const rules: [string, string, string][] = [
   ["valid_counts", "study_outcome", "treat_events >= 0 AND ctrl_events >= 0 AND treat_events <= treat_n AND ctrl_events <= ctrl_n"],
   ["ci_contains_estimate", "published_estimate", "lci <= es AND es <= uci"],
   ["has_doi", "retraction", "original_doi IS NOT NULL AND original_doi <> ''"],
+  ["study_identified", "study_outcome", "(study_doi IS NOT NULL AND study_doi <> '') OR (study_pmid IS NOT NULL AND study_pmid <> '')"],
+  ["printed_totals_present", "published_estimate", "printed_treat_n > 0 AND printed_ctrl_n > 0"],
 ];
 for (const [name, table, expr] of rules) {
   await sql(`REMOVE DQ ${name} TABLE ${T(table)}`, { allowFail: true });
@@ -154,7 +170,7 @@ for (const [name, table, expr] of rules) {
 await sql(`LIST DQ USL ${USL}`);
 
 // ---- 5. the exact query the agent's Scout runs ----
-await sql(`SELECT s.study, s.outcome, r.notice, r.notice_date FROM ${T("study_outcome")} s JOIN ${T("retraction")} r ON s.study_doi = r.original_doi WHERE s.outcome = 'MACE'`);
+await sql(`SELECT s.study, s.outcome, r.notice, r.notice_date, r.notice_doi FROM ${T("study_outcome")} s JOIN ${T("retraction")} r ON s.study_doi = r.original_doi OR s.study_pmid = r.original_pmid WHERE s.outcome = 'MACE'`);
 
 flush();
 console.log("\nDone. Log: evidence/zetaris_setup_log.md");

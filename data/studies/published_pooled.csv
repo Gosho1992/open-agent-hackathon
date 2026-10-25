@@ -1,13 +1,13 @@
-review_doi,outcome,scenario,method,measure,es,lci,uci,source
-10.1371/journal.pone.0159252,MACE,all,Fixed MH,RR,0.63,0.53,0.75,Fig 2
-10.1371/journal.pone.0159252,MACE,excl Singh 2002,Fixed MH,RR,0.69,0.55,0.86,Fig 2
-10.1371/journal.pone.0159252,CVD mortality,all,Fixed MH,RR,0.90,0.72,1.11,Fig 2
-10.1371/journal.pone.0159252,CVD mortality,excl Singh 2002,Fixed MH,RR,0.99,0.78,1.26,Fig 2
-10.1371/journal.pone.0159252,Coronary events,all,Fixed MH,RR,0.65,0.50,0.85,Fig 2
-10.1371/journal.pone.0159252,Coronary events,excl Singh 2002,Fixed MH,RR,0.73,0.51,1.05,Fig 2
-10.1371/journal.pone.0159252,Stroke,all,Fixed MH,RR,0.65,0.48,0.88,Fig 2
-10.1371/journal.pone.0159252,Stroke,excl Singh 2002,Fixed MH,RR,0.66,0.48,0.92,Fig 2
-10.1371/journal.pone.0159252,Heart failure,all,Fixed MH,RR,0.30,0.17,0.56,Fig 2
-10.1371/journal.pone.0159252,Heart failure,excl Singh 2002,Fixed MH,RR,0.25,0.05,1.17,Fig 2
-10.1371/journal.pone.0159252,All-cause mortality,all,Fixed MH,RR,1.00,0.86,1.15,Fig 2
-10.1371/journal.pone.0159252,All-cause mortality,excl Singh 2002,Fixed MH,RR,1.05,0.90,1.22,Fig 2
+review_doi,outcome,scenario,method,measure,es,lci,uci,printed_treat_events,printed_treat_n,printed_ctrl_events,printed_ctrl_n,vitality_key,source
+10.1371/journal.pone.0159252,MACE,all,Fixed MH,RR,0.63,0.53,0.75,236,5798,241,3254,711_5:1,Fig 2
+10.1371/journal.pone.0159252,MACE,excl Singh 2002,Fixed MH,RR,0.69,0.55,0.86,187,5299,145,2753,,Fig 2
+10.1371/journal.pone.0159252,CVD mortality,all,Fixed MH,RR,0.90,0.72,1.11,166,6605,149,4018,711_5:2,Fig 2
+10.1371/journal.pone.0159252,CVD mortality,excl Singh 2002,Fixed MH,RR,0.99,0.78,1.26,146,6106,113,3517,,Fig 2
+10.1371/journal.pone.0159252,Coronary events,all,Fixed MH,RR,0.65,0.50,0.85,106,5798,115,3254,711_5:3,Fig 2
+10.1371/journal.pone.0159252,Coronary events,excl Singh 2002,Fixed MH,RR,0.73,0.51,1.05,73,5299,55,2753,,Fig 2
+10.1371/journal.pone.0159252,Stroke,all,Fixed MH,RR,0.65,0.48,0.88,90,5798,77,3254,711_5:4,Fig 2
+10.1371/journal.pone.0159252,Stroke,excl Singh 2002,Fixed MH,RR,0.66,0.48,0.92,81,5299,61,2753,,Fig 2
+10.1371/journal.pone.0159252,Heart failure,all,Fixed MH,RR,0.30,0.17,0.56,13,801,43,804,,Fig 2
+10.1371/journal.pone.0159252,Heart failure,excl Singh 2002,Fixed MH,RR,0.25,0.05,1.17,2,302,8,303,,Fig 2
+10.1371/journal.pone.0159252,All-cause mortality,all,Fixed MH,RR,1.00,0.86,1.15,409,6630,284,4041,711_5:5,Fig 2
+10.1371/journal.pone.0159252,All-cause mortality,excl Singh 2002,Fixed MH,RR,1.05,0.90,1.22,385,6131,246,3540,,Fig 2

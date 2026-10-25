@@ -44,7 +44,7 @@ test("verdicts: Singh exclusion on coronary events loses significance; MACE hold
   assert.equal(v1.headline, "SIGNIFICANCE_LOST");
   const mace = byOutcome("MACE");
   const v2 = compare(poolBinary(mace, "Fixed MH", "RR"), poolBinary(mace.filter(s => !s.name.includes("Singh")), "Fixed MH", "RR"));
-  assert.equal(v2.headline, "HOLDS");
+  assert.equal(v2.headline, "NO_CHANGE_DETECTED");
 });
 
 test("Peto OR and DerSimonian-Laird run on simple data", () => {

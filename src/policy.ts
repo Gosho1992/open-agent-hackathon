@@ -2,7 +2,9 @@
 // This is a reviewer decision, not a fact in the data, so Aftershock remembers it in H-MEM
 // (see src/hmem/policyMemory.ts) with its source and trust, and applies it in later sessions.
 
-export type Notice = "Retraction" | "Retract and replace" | "Expression of concern" | "Correction" | "None";
+export type Notice = "Retraction" | "Retract and replace" | "Expression of concern" | "Correction" | "Reinstatement" | "None";
+/** A notice type the policy does not know. Never mapped to "None": the audit escalates instead. */
+export const UNRECOGNISED = "Unrecognised notice" as const;
 
 export interface ExclusionPolicy {
   exclude: Record<Notice, boolean>;
@@ -11,15 +13,16 @@ export interface ExclusionPolicy {
 }
 
 export const DEFAULT_POLICY: ExclusionPolicy = {
-  exclude: { "Retraction": true, "Retract and replace": true, "Expression of concern": false, "Correction": false, "None": false },
+  exclude: { "Retraction": true, "Retract and replace": true, "Expression of concern": false, "Correction": false, "Reinstatement": false, "None": false },
   provenance: {},
 };
 
 /** Map a Retraction Watch record to the notice type the policy speaks about. */
-export function noticeOf(nature: string, reason: string): Notice {
-  const n = nature.toLowerCase();
+export function noticeOf(nature: string, reason: string): Notice | typeof UNRECOGNISED {
+  const n = nature.toLowerCase().trim();
   if (n.includes("expression of concern")) return "Expression of concern";
   if (n.includes("correction")) return "Correction";
+  if (n.includes("reinstatement")) return "Reinstatement";
   if (n.includes("retraction")) return /retract and replace/i.test(reason) ? "Retract and replace" : "Retraction";
-  return "None";
+  return UNRECOGNISED;
 }

@@ -15,7 +15,7 @@ export interface ChatMessage {
   role: "system" | "user" | "assistant";
   content: string | Array<{ type: "text"; text: string } | { type: "image_url"; image_url: { url: string } }>;
 }
-export interface ChatResult { text: string; model: string; provider: string; ms: number; replayed: boolean }
+export interface ChatResult { text: string; model: string; provider: string; ms: number; replayed: boolean; label?: string | null; receipt?: string | null; receipt_envelope?: unknown }
 
 const BASE = normalise(process.env.NIGHTSHIFT_BASE_URL ?? "http://127.0.0.1:8088/v1");
 const TOKEN = process.env.NIGHTSHIFT_TOKEN ?? "";
@@ -44,7 +44,7 @@ export async function chat(role: string, model: string, messages: ChatMessage[],
   if (SAMPLE) {
     if (!fs.existsSync(file)) throw new Error(`SAMPLE_MODE: no recorded response for ${role} (${id}). Record one with RECORD_FIXTURES=true.`);
     const rec = JSON.parse(fs.readFileSync(file, "utf8"));
-    trace("llm", { role, model: rec.model, provider: rec.provider, replayed: true, fixture: path.basename(file) });
+    trace("llm", { role, model: rec.model, label: rec.label ?? null, provider: rec.provider, receipt: rec.receipt ?? null, signed: Boolean((rec.receipt_envelope as any)?.sig_b64), replayed: true, fixture: path.basename(file) });
     return { ...rec, replayed: true };
   }
   const t0 = Date.now();
@@ -76,8 +76,10 @@ export async function chat(role: string, model: string, messages: ChatMessage[],
   const receipt = body.meterless?.receipt_id ?? null;
   const signed = Boolean(body.meterless?.receipt_envelope?.sig_b64);
   if (!text.trim()) throw new Error(`empty response from ${served}`);
-  trace("llm", { role, requested: model, model: served, label: win?.label ?? null, provider, receipt, signed, ms });
-  const out: ChatResult = { text, model: served, provider, ms, replayed: false };
+  // The signed receipt envelope is public, verifiable metadata (no credentials): keep it whole.
+  const receipt_envelope = body.meterless?.receipt_envelope ?? null;
+  trace("llm", { role, requested: model, model: served, label: win?.label ?? null, provider, receipt, signed, ms, receipt_envelope });
+  const out: ChatResult = { text, model: served, provider, ms, replayed: false, label: win?.label ?? null, receipt, receipt_envelope };
   if (RECORD) { fs.mkdirSync(FIXTURES, { recursive: true }); fs.writeFileSync(file, JSON.stringify(out, null, 2)); }
   return out;
 }

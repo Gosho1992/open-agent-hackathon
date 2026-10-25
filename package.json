@@ -10,6 +10,8 @@
     "test": "node --experimental-strip-types --test test/*.test.ts",
     "audit": "tsx --env-file-if-exists=.env src/cli.ts audit",
     "policy": "tsx --env-file-if-exists=.env src/cli.ts policy",
+    "explain": "tsx --env-file-if-exists=.env src/cli.ts explain",
+    "verify-trace": "tsx src/cli.ts verify-trace",
     "conformance": "tsx conformance/runner.ts",
     "zetaris:setup": "tsx --env-file-if-exists=.env scripts/zetaris_setup.ts"
   },
