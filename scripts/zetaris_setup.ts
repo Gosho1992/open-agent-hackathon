@@ -54,9 +54,11 @@ for (const [t, f] of Object.entries(files)) {
   await sql(`DROP TABLE IF EXISTS ${RAW}.${t}`, { allowFail: true });
   await sql(`CREATE LIGHTNING FILESTORE TABLE ${t} FROM ${RAW} FORMAT CSV OPTIONS (PATH "${STORE}/${path.basename(f)}", header "true", inferSchema "false", multiLine "true", escape '"')`);
 }
-await sql(`SELECT count(*) FROM ${RAW}.rw_raw`);
+const [cnt] = await sql(`SELECT count(*) AS n FROM ${RAW}.rw_raw`);
+console.log(`     Retraction Watch rows in Zetaris: ${cnt?.n ?? JSON.stringify(cnt)}`);
 
 // ---- 3. Unified Semantic Layer ----
+await sql(`CREATE NAMESPACE lightning.metastore`, { allowFail: true });
 await sql(`CREATE NAMESPACE ${NS}`, { allowFail: true });
 await sql(`COMPILE USL evidence DEPLOY NAMESPACE ${NS} DDL
 CREATE TABLE review (
