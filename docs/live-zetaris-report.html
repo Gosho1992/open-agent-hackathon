@@ -1,0 +1,143 @@
+<title>Aftershock audit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single reading column; each outcome is one forest-plot row that opens into its evidence. */
+:root{--bg:#F7F7F4;--panel:#FFFFFF;--ink:#10232A;--muted:#55666A;--line:#D3DCDA;--accent:#C2531F;--teal:#2F7F86;--calm:#2F7F86;--warn:#A86A12;--alert:#C2531F;--stop:#7A2E8E;
+--display:'EB Garamond',Georgia,serif;--body:'IBM Plex Sans',Arial,sans-serif;--mono:'IBM Plex Mono','Courier New',monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1D22;--panel:#152A30;--ink:#ECEDE7;--muted:#A3B5B2;--line:#2B444A;--accent:#F08A5D;--teal:#6FC1C4;--calm:#6FC1C4;--warn:#E3A846;--alert:#F08A5D;--stop:#C98BDA;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1D22;--panel:#152A30;--ink:#ECEDE7;--muted:#A3B5B2;--line:#2B444A;--accent:#F08A5D;--teal:#6FC1C4;--calm:#6FC1C4;--warn:#E3A846;--alert:#F08A5D;--stop:#C98BDA;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body)}
+main{max-width:1180px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1{font:600 clamp(30px,5vw,46px)/1.1 var(--display);margin:0;text-wrap:balance}
+h2{font:600 24px/1.2 var(--display);margin:0}
+h4{font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
+.eyebrow{font:500 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+.stats{display:flex;flex-wrap:wrap;gap:12px 36px;font:500 14px var(--body);color:var(--muted)}
+.stats b{font:600 22px var(--mono);color:var(--ink);margin-right:6px}
+.table{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.head,summary{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(130px,1fr) minmax(130px,1fr) minmax(180px,1.6fr) 150px minmax(120px,1fr);gap:14px;align-items:center;padding:12px 18px}
+.head{font:600 11px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+details.row{border-bottom:1px solid var(--line)}details.row:last-child{border-bottom:none}
+summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+summary:hover{background:color-mix(in srgb,var(--line) 25%,transparent)}
+summary:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+.o{font-weight:600}.n{font:400 13px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}.ci{color:var(--muted)}
+.cc{font-size:13px;color:var(--muted)}
+.pill{justify-self:start;font:600 12px var(--body);padding:4px 10px;border-radius:999px;border:1px solid currentColor}
+.calm .pill{color:var(--calm)}.warn .pill{color:var(--warn)}.alert .pill{color:var(--alert)}.stop .pill{color:var(--stop)}
+svg .tick{fill:var(--muted);font:600 11px var(--body)}svg .grid{stroke:var(--line);stroke-width:1}svg .null{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 3}
+svg .pub{stroke:var(--muted)}svg .pub-mark{fill:var(--muted)}svg .new{stroke:var(--accent)}svg .new-mark{fill:var(--accent)}
+.detail{padding:4px 18px 18px;max-width:900px}.detail ul{margin:0;padding-left:18px}.detail p{margin:6px 0}
+.meta{color:var(--muted);font-size:13px}.stop-note{color:var(--stop)}
+pre{white-space:pre-wrap;font:13px/1.5 var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;margin:0;overflow-x:auto}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:6px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}.cols>section{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.cols ul{padding-left:18px;margin:8px 0 0}.tag{font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+code{font:13px var(--mono);word-break:break-all}a{color:var(--teal)}
+@media (max-width:860px){.head{display:none}summary{grid-template-columns:1fr 1fr;row-gap:8px}.plot{grid-column:1/-1}.cols{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<main>
+<header>
+  <div class="eyebrow">Aftershock · evidence-integrity audit</div>
+  <h1>Liyanage 2016, Mediterranean diet and cardiovascular outcomes</h1>
+  <p class="lede">Review <a href="https://doi.org/10.1371/journal.pone.0159252">10.1371/journal.pone.0159252</a>. Each published pooled result was reproduced from the study table before any change was measured. Open a row for the notices, the excluded studies and the report.</p>
+</header>
+<div class="stats"><span><b>6/6</b>outcomes verified</span><span><b>2</b>changed</span><span><b>5</b>agree with VITALITY</span><span><b>zetaris</b>data source</span></div>
+<div class="legend"><span><i style="background:var(--muted)"></i>Published, 95% CI</span><span><i style="background:var(--accent)"></i>Without excluded studies</span><span>Dashed line: no effect (RR 1). Log scale, 0.1 to 4.</span></div>
+<div class="table">
+<div class="head"><span>Outcome</span><span>Published</span><span>Recalculated</span><span><svg viewBox="-12 0 444 16" width="100%" role="img" aria-label="Risk ratio axis, log scale 0.1 to 4"><text x="0.0" y="12" text-anchor="middle" class="tick">0.1</text><text x="104.3" y="12" text-anchor="middle" class="tick">0.25</text><text x="183.2" y="12" text-anchor="middle" class="tick">0.5</text><text x="262.2" y="12" text-anchor="middle" class="tick">1</text><text x="341.1" y="12" text-anchor="middle" class="tick">2</text><text x="420.0" y="12" text-anchor="middle" class="tick">4</text></svg></span><span>Verdict</span><span>Independent check</span></div>
+<details class="row warn"><summary>
+  <span class="o">MACE</span>
+  <span class="n">RR 0.63 <span class="ci">(0.53–0.75)</span></span>
+  <span class="n">RR 0.43 <span class="ci">(0.32–0.58)</span></span>
+  <span class="plot"><svg viewBox="-12 0 444 56" width="100%" role="img" aria-label="Published and recalculated MACE estimates on a log scale"><line x1="0.1" x2="0.1" y1="4" y2="52" class="grid"/><line x1="104.3" x2="104.3" y1="4" y2="52" class="grid"/><line x1="183.2" x2="183.2" y1="4" y2="52" class="grid"/><line x1="262.2" x2="262.2" y1="4" y2="52" class="null"/><line x1="341.1" x2="341.1" y1="4" y2="52" class="grid"/><line x1="420.0" x2="420.0" y1="4" y2="52" class="grid"/><line x1="189.9" x2="229.4" y1="18" y2="18" class="pub" stroke-width="3"/><rect x="203.6" y="12" width="12" height="12" class="pub-mark"/><line x1="133.6" x2="200.4" y1="40" y2="40" class="new" stroke-width="3"/><rect x="161.0" y="34" width="12" height="12" class="new-mark"/></svg></span>
+  <span class="pill">Estimate shifted</span>
+  <span class="cc">Agrees · VITALITY 711_5:1</span>
+</summary>
+<div class="detail">
+  <p>Direction and significance are unchanged, but the new estimate lies outside the original confidence interval (larger effect).</p>
+  <p class="meta">Gate: reproduced the published Fixed MH RR from the study table in 1 attempt (computed 0.63, 0.53–0.75). Independent check: RR 0.43 (0.32-0.58).</p>
+  <h4>Excluded</h4><ul><li><b>Estruch 2013 (PREDIMED)</b>: Retract and replace (default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial&#39;s evidence is invalid. Replacement: <a href="https://doi.org/10.1056/NEJMoa1800389">10.1056/NEJMoa1800389</a>.</li></ul><h4>Flagged, kept</h4><ul><li><b>Singh 2002</b>: Expression of concern, kept by policy</li></ul><h4>Editorial notices found</h4><ul><li>Estruch 2013 (PREDIMED): Retract and replace, 6/13/2018, notice <a href="https://doi.org/10.1056/nejmc1806491">10.1056/nejmc1806491</a>, matched on DOI, Retraction Watch #18405</li><li>Singh 2002: Expression of concern, 7/30/2005, notice <a href="https://doi.org/10.1016/s0140-6736(05)67006-7">10.1016/s0140-6736(05)67006-7</a>, matched on DOI, Retraction Watch #23581</li></ul>
+  
+</div></details>
+<details class="row calm"><summary>
+  <span class="o">Coronary events</span>
+  <span class="n">RR 0.65 <span class="ci">(0.50–0.85)</span></span>
+  <span class="n">RR 0.50 <span class="ci">(0.34–0.72)</span></span>
+  <span class="plot"><svg viewBox="-12 0 444 56" width="100%" role="img" aria-label="Published and recalculated Coronary events estimates on a log scale"><line x1="0.1" x2="0.1" y1="4" y2="52" class="grid"/><line x1="104.3" x2="104.3" y1="4" y2="52" class="grid"/><line x1="183.2" x2="183.2" y1="4" y2="52" class="grid"/><line x1="262.2" x2="262.2" y1="4" y2="52" class="null"/><line x1="341.1" x2="341.1" y1="4" y2="52" class="grid"/><line x1="420.0" x2="420.0" y1="4" y2="52" class="grid"/><line x1="183.2" x2="243.7" y1="18" y2="18" class="pub" stroke-width="3"/><rect x="207.1" y="12" width="12" height="12" class="pub-mark"/><line x1="139.6" x2="224.8" y1="40" y2="40" class="new" stroke-width="3"/><rect x="176.2" y="34" width="12" height="12" class="new-mark"/></svg></span>
+  <span class="pill">No change detected</span>
+  <span class="cc">Agrees · VITALITY 711_5:3</span>
+</summary>
+<div class="detail">
+  <p>No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer&#39;s call.</p>
+  <p class="meta">Gate: reproduced the published Fixed MH RR from the study table in 1 attempt (computed 0.65, 0.50–0.85). Independent check: RR 0.50 (0.34-0.72).</p>
+  <h4>Excluded</h4><ul><li><b>Estruch 2013 (PREDIMED)</b>: Retract and replace (default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial&#39;s evidence is invalid. Replacement: <a href="https://doi.org/10.1056/NEJMoa1800389">10.1056/NEJMoa1800389</a>.</li></ul><h4>Flagged, kept</h4><ul><li><b>Singh 2002</b>: Expression of concern, kept by policy</li></ul><h4>Editorial notices found</h4><ul><li>Estruch 2013 (PREDIMED): Retract and replace, 6/13/2018, notice <a href="https://doi.org/10.1056/nejmc1806491">10.1056/nejmc1806491</a>, matched on DOI, Retraction Watch #18405</li><li>Singh 2002: Expression of concern, 7/30/2005, notice <a href="https://doi.org/10.1016/s0140-6736(05)67006-7">10.1016/s0140-6736(05)67006-7</a>, matched on DOI, Retraction Watch #23581</li></ul>
+  
+</div></details>
+<details class="row alert"><summary>
+  <span class="o">Stroke</span>
+  <span class="n">RR 0.65 <span class="ci">(0.48–0.88)</span></span>
+  <span class="n">RR 0.49 <span class="ci">(0.23–1.05)</span></span>
+  <span class="plot"><svg viewBox="-12 0 444 56" width="100%" role="img" aria-label="Published and recalculated Stroke estimates on a log scale"><line x1="0.1" x2="0.1" y1="4" y2="52" class="grid"/><line x1="104.3" x2="104.3" y1="4" y2="52" class="grid"/><line x1="183.2" x2="183.2" y1="4" y2="52" class="grid"/><line x1="262.2" x2="262.2" y1="4" y2="52" class="null"/><line x1="341.1" x2="341.1" y1="4" y2="52" class="grid"/><line x1="420.0" x2="420.0" y1="4" y2="52" class="grid"/><line x1="178.6" x2="247.6" y1="18" y2="18" class="pub" stroke-width="3"/><rect x="207.1" y="12" width="12" height="12" class="pub-mark"/><line x1="93.3" x2="268.1" y1="40" y2="40" class="new" stroke-width="3"/><rect x="174.7" y="34" width="12" height="12" class="new-mark"/></svg></span>
+  <span class="pill">Significance lost</span>
+  <span class="cc">Agrees · VITALITY 711_5:4</span>
+</summary>
+<div class="detail">
+  <p>The original result was statistically significant; without the excluded studies the confidence interval includes no effect.</p>
+  <p class="meta">Gate: reproduced the published Fixed MH RR from the study table in 1 attempt (computed 0.65, 0.48–0.88). Independent check: RR 0.49 (0.23-1.05).</p>
+  <h4>Excluded</h4><ul><li><b>Estruch 2013 (PREDIMED)</b>: Retract and replace (default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial&#39;s evidence is invalid. Replacement: <a href="https://doi.org/10.1056/NEJMoa1800389">10.1056/NEJMoa1800389</a>.</li></ul><h4>Flagged, kept</h4><ul><li><b>Singh 2002</b>: Expression of concern, kept by policy</li></ul><h4>Editorial notices found</h4><ul><li>Estruch 2013 (PREDIMED): Retract and replace, 6/13/2018, notice <a href="https://doi.org/10.1056/nejmc1806491">10.1056/nejmc1806491</a>, matched on DOI, Retraction Watch #18405</li><li>Singh 2002: Expression of concern, 7/30/2005, notice <a href="https://doi.org/10.1016/s0140-6736(05)67006-7">10.1016/s0140-6736(05)67006-7</a>, matched on DOI, Retraction Watch #23581</li></ul>
+  
+</div></details>
+<details class="row calm"><summary>
+  <span class="o">CVD mortality</span>
+  <span class="n">RR 0.90 <span class="ci">(0.72–1.11)</span></span>
+  <span class="n">RR 0.88 <span class="ci">(0.69–1.13)</span></span>
+  <span class="plot"><svg viewBox="-12 0 444 56" width="100%" role="img" aria-label="Published and recalculated CVD mortality estimates on a log scale"><line x1="0.1" x2="0.1" y1="4" y2="52" class="grid"/><line x1="104.3" x2="104.3" y1="4" y2="52" class="grid"/><line x1="183.2" x2="183.2" y1="4" y2="52" class="grid"/><line x1="262.2" x2="262.2" y1="4" y2="52" class="null"/><line x1="341.1" x2="341.1" y1="4" y2="52" class="grid"/><line x1="420.0" x2="420.0" y1="4" y2="52" class="grid"/><line x1="224.8" x2="274.0" y1="18" y2="18" class="pub" stroke-width="3"/><rect x="244.2" y="12" width="12" height="12" class="pub-mark"/><line x1="219.6" x2="276.6" y1="40" y2="40" class="new" stroke-width="3"/><rect x="242.1" y="34" width="12" height="12" class="new-mark"/></svg></span>
+  <span class="pill">No change detected</span>
+  <span class="cc">Agrees · VITALITY 711_5:2</span>
+</summary>
+<div class="detail">
+  <p>No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer&#39;s call.</p>
+  <p class="meta">Gate: reproduced the published Fixed MH RR from the study table in 1 attempt (computed 0.90, 0.72–1.11). Independent check: RR 0.88 (0.69-1.13).</p>
+  <h4>Excluded</h4><ul><li><b>Estruch 2013 (PREDIMED)</b>: Retract and replace (default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial&#39;s evidence is invalid. Replacement: <a href="https://doi.org/10.1056/NEJMoa1800389">10.1056/NEJMoa1800389</a>.</li></ul><h4>Flagged, kept</h4><ul><li><b>Singh 2002</b>: Expression of concern, kept by policy</li></ul><h4>Editorial notices found</h4><ul><li>Estruch 2013 (PREDIMED): Retract and replace, 6/13/2018, notice <a href="https://doi.org/10.1056/nejmc1806491">10.1056/nejmc1806491</a>, matched on DOI, Retraction Watch #18405</li><li>Singh 2002: Expression of concern, 7/30/2005, notice <a href="https://doi.org/10.1016/s0140-6736(05)67006-7">10.1016/s0140-6736(05)67006-7</a>, matched on DOI, Retraction Watch #23581</li></ul>
+  
+</div></details>
+<details class="row calm"><summary>
+  <span class="o">All-cause mortality</span>
+  <span class="n">RR 1.00 <span class="ci">(0.86–1.15)</span></span>
+  <span class="n">RR 0.99 <span class="ci">(0.81–1.21)</span></span>
+  <span class="plot"><svg viewBox="-12 0 444 56" width="100%" role="img" aria-label="Published and recalculated All-cause mortality estimates on a log scale"><line x1="0.1" x2="0.1" y1="4" y2="52" class="grid"/><line x1="104.3" x2="104.3" y1="4" y2="52" class="grid"/><line x1="183.2" x2="183.2" y1="4" y2="52" class="grid"/><line x1="262.2" x2="262.2" y1="4" y2="52" class="null"/><line x1="341.1" x2="341.1" y1="4" y2="52" class="grid"/><line x1="420.0" x2="420.0" y1="4" y2="52" class="grid"/><line x1="245.0" x2="278.1" y1="18" y2="18" class="pub" stroke-width="3"/><rect x="256.2" y="12" width="12" height="12" class="pub-mark"/><line x1="238.4" x2="283.4" y1="40" y2="40" class="new" stroke-width="3"/><rect x="254.9" y="34" width="12" height="12" class="new-mark"/></svg></span>
+  <span class="pill">No change detected</span>
+  <span class="cc">Agrees · VITALITY 711_5:5</span>
+</summary>
+<div class="detail">
+  <p>No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer&#39;s call.</p>
+  <p class="meta">Gate: reproduced the published Fixed MH RR from the study table in 1 attempt (computed 1.00, 0.86–1.15). Independent check: RR 0.99 (0.81-1.21).</p>
+  <h4>Excluded</h4><ul><li><b>Estruch 2013 (PREDIMED)</b>: Retract and replace (default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial&#39;s evidence is invalid. Replacement: <a href="https://doi.org/10.1056/NEJMoa1800389">10.1056/NEJMoa1800389</a>.</li></ul><h4>Flagged, kept</h4><ul><li><b>Singh 2002</b>: Expression of concern, kept by policy</li></ul><h4>Editorial notices found</h4><ul><li>Estruch 2013 (PREDIMED): Retract and replace, 6/13/2018, notice <a href="https://doi.org/10.1056/nejmc1806491">10.1056/nejmc1806491</a>, matched on DOI, Retraction Watch #18405</li><li>Singh 2002: Expression of concern, 7/30/2005, notice <a href="https://doi.org/10.1016/s0140-6736(05)67006-7">10.1016/s0140-6736(05)67006-7</a>, matched on DOI, Retraction Watch #23581</li></ul>
+  
+</div></details>
+<details class="row calm"><summary>
+  <span class="o">Heart failure</span>
+  <span class="n">RR 0.30 <span class="ci">(0.17–0.56)</span></span>
+  <span class="n">RR 0.30 <span class="ci">(0.16–0.56)</span></span>
+  <span class="plot"><svg viewBox="-12 0 444 56" width="100%" role="img" aria-label="Published and recalculated Heart failure estimates on a log scale"><line x1="0.1" x2="0.1" y1="4" y2="52" class="grid"/><line x1="104.3" x2="104.3" y1="4" y2="52" class="grid"/><line x1="183.2" x2="183.2" y1="4" y2="52" class="grid"/><line x1="262.2" x2="262.2" y1="4" y2="52" class="null"/><line x1="341.1" x2="341.1" y1="4" y2="52" class="grid"/><line x1="420.0" x2="420.0" y1="4" y2="52" class="grid"/><line x1="60.4" x2="196.1" y1="18" y2="18" class="pub" stroke-width="3"/><rect x="119.1" y="12" width="12" height="12" class="pub-mark"/><line x1="56.8" x2="196.0" y1="40" y2="40" class="new" stroke-width="3"/><rect x="120.4" y="34" width="12" height="12" class="new-mark"/></svg></span>
+  <span class="pill">No change detected</span>
+  <span class="cc">Not available</span>
+</summary>
+<div class="detail">
+  <p>No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer&#39;s call.</p>
+  <p class="meta">Gate: reproduced the published Fixed MH RR from the study table in 1 attempt (computed 0.30, 0.16–0.56). Independent check: no VITALITY analysis is registered for this outcome.</p>
+  <h4>Flagged, kept</h4><ul><li><b>Singh 2002</b>: Expression of concern, kept by policy</li></ul><h4>Editorial notices found</h4><ul><li>Singh 2002: Expression of concern, 7/30/2005, notice <a href="https://doi.org/10.1016/s0140-6736(05)67006-7">10.1016/s0140-6736(05)67006-7</a>, matched on DOI, Retraction Watch #23581</li></ul>
+  
+</div></details>
+</div>
+<div class="cols">
+<section><h2>Exclusion policy in force</h2><ul><li><b>Retraction</b>: exclude</li><li><b>Retract and replace</b>: exclude</li><li><b>Expression of concern</b>: keep</li><li><b>Correction</b>: keep</li><li><b>Reinstatement</b>: keep</li><li><b>None</b>: keep</li></ul><p class="meta">Recalled from Meterless H-MEM where a provenance is shown; otherwise the default.</p></section>
+<section><h2>Provenance</h2><p class="meta">Code sha256 <code>7562c200ca2b00d86843a036befb2b7ae23864eceb02cc09e4c2b97b106e4285</code></p><p class="meta">Trace head <code>5cdeaba8d0306f0c1be3a293c687b2ecfd611ac4e12795c263f944ce0977f5e1</code></p><p class="meta">Check with <code>npm run verify-trace -- &lt;trace.jsonl&gt;</code>.</p></section>
+</div>
+<section class="cols" style="grid-template-columns:1fr"><section><h2>Later documents to check</h2><p class="meta">209 works cite this review; 200 scanned (OpenAlex). Candidates are matched by title and need a human to confirm whether they relied on a changed outcome.</p><ul><li><span class="tag">Guideline-type</span> 2024 · <a href="https://doi.org/10.38109/2225-1685-2024-4-6-66">Eurasian clinical practice guidelines for dietary management of cardiovascular diseases (2024)</a> <span class="meta">Eurasian heart journal</span></li><li><span class="tag">Guideline-type</span> 2023 · <a href="https://doi.org/10.5551/jat.gl2022">Japan Atherosclerosis Society (JAS) Guidelines for Prevention of Atherosclerotic Cardiovascular Diseases 2022</a> <span class="meta">Journal of Atherosclerosis and Thrombosis</span></li><li><span class="tag">Guideline-type</span> 2018 · <a href="https://doi.org/10.1093/advances/nmx007">Practical Dietary Recommendations for the Prevention and Management of Nonalcoholic Fatty Liver Disease in Adults</a> <span class="meta">Advances in Nutrition</span></li><li><span class="tag">Guideline-type</span> 2018 · <a href="https://doi.org/10.1016/j.artere.2018.11.001">Document of recommendations of the SEA 2018. Lifestyle in cardiovascular prevention</a> <span class="meta">Clínica e Investigación en Arteriosclerosis (English Edition)</span></li><li><span class="tag">Later review</span> 2025 · <a href="https://doi.org/10.1007/s11357-024-01488-3">The role of the Mediterranean diet in reducing the risk of cognitive impairement, dementia, and Alzheimer’s disease: a meta-analysis</a> <span class="meta">GeroScience</span></li><li><span class="tag">Later review</span> 2025 · <a href="https://doi.org/10.3389/fcvm.2025.1664802">Preventing premature cardiovascular mortality: the role of lifestyle interventions and pharmacotherapy—a narrative review</a> <span class="meta">Frontiers in Cardiovascular Medicine</span></li><li><span class="tag">Later review</span> 2024 · <a href="https://doi.org/10.3390/ijms25094942">The Mediterranean Diet, Its Microbiome Connections, and Cardiovascular Health: A Narrative Review</a> <span class="meta">International Journal of Molecular Sciences</span></li><li><span class="tag">Later review</span> 2024 · <a href="https://doi.org/10.1016/j.cpcardiol.2024.102509">Long-term impact of mediterranean diet on cardiovascular disease prevention: A systematic review and meta-analysis of randomized controlled trials</a> <span class="meta">Current Problems in Cardiology</span></li><li><span class="tag">Later review</span> 2024 · <a href="https://doi.org/10.1111/1747-0080.12891">The effectiveness of the Mediterranean Diet for primary and secondary prevention of cardiovascular disease: An umbrella review</a> <span class="meta">Nutrition &amp; Dietetics</span></li><li><span class="tag">Later review</span> 2024 · <a href="https://doi.org/10.1016/j.micpath.2024.106647">Alteration of the gut microbiome in patients with heart failure: A systematic review and meta-analysis</a> <span class="meta">Microbial Pathogenesis</span></li><li><span class="tag">Later review</span> 2024 · <a href="https://doi.org/10.1038/s41430-024-01519-4">Effect of the Mediterranean diet on incidence of heart failure in European countries: a systematic review and meta-analysis of cohort studies</a> <span class="meta">European Journal of Clinical Nutrition</span></li><li><span class="tag">Later review</span> 2024 · <a href="https://doi.org/10.1007/s00394-024-03478-9">Mediterranean diet enriched with olive oil shows no consistent benefits on cardiometabolic and anthropometric parameters: a systematic review with meta-analysis of randomized controlled trials</a> <span class="meta">European Journal of Nutrition</span></li></ul></section></section>
+</main>

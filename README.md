@@ -6,7 +6,9 @@ Aftershock is an evidence-integrity agent. Given a published meta-analysis, it f
 
 > Open Agent Hackathon 2026 · Track 2: *The Agent That Can Explain Why* · solo entry (Zain Zia)
 >
-> **Demo video:** _link added at submission_ · **Slides:** _link added at submission_ · **Results page:** _link added at submission_
+> **Demo video:** _link added at submission_ · **Slides:** https://claude.ai/artifact/MvXT6JD2b45teTEQ6QJqd8 · **Results page (live Zetaris run):** https://claude.ai/artifact/3AAGFPgUoV1GxCzXwuN8pD · [same report in the repo](docs/live-zetaris-report.html)
+
+![Aftershock reviewer report: published vs recalculated results per outcome, with the evidence behind the Stroke verdict](docs/report-screenshot.png)
 
 Tools that flag a citation to a retracted paper already exist. VITALITY (Xu et al., *BMJ* 2025) showed by hand what happens when those trials are removed from meta-analyses. Aftershock turns that recalculation into a repeatable, auditable agent: **it does not just say a review is contaminated, it shows whether the result moves, after proving it can reproduce the published number.**
 
@@ -92,7 +94,7 @@ It is a deliberately simple sequential pipeline: one language model for reading 
 
 | File | What it shows |
 |---|---|
-| `evidence/traces/live-zetaris_*audit-all.jsonl` | Full audit served from the Zetaris USL: every query, the gate, notices, verdicts, cross-checks. Hash-chained. |
+| `evidence/traces/live-zetaris_*audit-all.jsonl` | Full audit served from the Zetaris USL (29 SQL queries): the authoritative reference, the gate, notices, verdicts, cross-checks. Hash-chained; its `code_sha` equals this checkout's. |
 | `evidence/traces/live-zetaris_*audit-stroke.jsonl` | The recovery run against live Zetaris (fault injected → rejected → re-read → verified). |
 | `evidence/traces/explain_*.jsonl` | Nemotron-via-Nightshift explanations for that live result, with full signed receipts. Its first lines record the sha256 of the live result it explained. |
 | `evidence/zetaris_setup_log.md` | Every Zetaris statement and its response. |
@@ -101,6 +103,8 @@ It is a deliberately simple sequential pipeline: one language model for reading 
 ```bash
 npm run verify-trace -- evidence/traces/<file>.jsonl   # hash chain intact? same code_sha as this checkout?
 ```
+
+Every audit result can be turned into the reviewer report shown above: `npm run render -- <result.json>`.
 
 CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs the tests, the H-MEM conformance suite, the sample audit, the recovery demo and verifies every committed trace on each push.
 
