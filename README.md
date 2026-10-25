@@ -6,7 +6,7 @@ Aftershock is an evidence-integrity agent. Given a published meta-analysis, it f
 
 > Open Agent Hackathon 2026 · Track 2: *The Agent That Can Explain Why* · solo entry (Zain Zia)
 >
-> **Demo video:** _link added at submission_ · **Slides:** https://claude.ai/artifact/MvXT6JD2b45teTEQ6QJqd8 · **Results page (live Zetaris run):** https://claude.ai/artifact/3AAGFPgUoV1GxCzXwuN8pD · [same report in the repo](docs/live-zetaris-report.html)
+> **Demo video:** https://youtu.be/lCelN19ErZ0 · **Slides:** https://claude.ai/artifact/MvXT6JD2b45teTEQ6QJqd8 · **Results page (live Zetaris run):** https://claude.ai/artifact/3AAGFPgUoV1GxCzXwuN8pD · [same report in the repo](docs/live-zetaris-report.html)
 
 ![Aftershock reviewer report: published vs recalculated results per outcome, with the evidence behind the Stroke verdict](docs/report-screenshot.png)
 
