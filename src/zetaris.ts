@@ -1,6 +1,7 @@
 // Zetaris client. Uses the same route as the platform's own verify.sh:
 //   POST {UI}/api/auth/login              -> JWT + orgId
-//   POST {UI}/api/proxy/query/sql/start   {select, pageLimit}  (Bearer JWT, X-Org-ID)
+//   POST {UI}/api/proxy/sql-editor/sqls/run  {queryId, sql, source, limit}  (Bearer JWT, X-Org-ID)
+//        -> { headers: [...], data: [[...]], total, timeUsed }   (same call the SQL editor makes; runs DDL too)
 // Credentials come from the environment, or are read from the Zetaris platform's own
 // .env (ZETARIS_ADMIN_EMAIL / ZETARIS_ADMIN_PASSWORD) so nobody has to copy a secret.
 
@@ -40,18 +41,22 @@ function rowsOf(x: any): Record<string, any>[] | null {
 
 export interface ZResult { ok: boolean; status: number; rows: Record<string, string>[]; raw: string }
 
-export async function zquery(sql: string, pageLimit = 5000): Promise<ZResult> {
+export async function zquery(sql: string, limit = 5000): Promise<ZResult> {
   session ??= login();
   const { token, org } = await session;
-  const res = await fetch(`${UI}/api/proxy/query/sql/start`, {
+  const res = await fetch(`${UI}/api/proxy/sql-editor/sqls/run`, {
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${token}`, "x-org-id": org, "x-request-id": crypto.randomUUID() },
-    body: JSON.stringify({ select: sql.trim(), pageLimit }),
-    signal: AbortSignal.timeout(300_000),
+    body: JSON.stringify({ queryId: crypto.randomUUID(), sql: sql.trim(), source: "SqlEditor", limit }),
+    signal: AbortSignal.timeout(600_000),
   });
   const raw = await res.text();
   let body: any = null; try { body = JSON.parse(raw); } catch { /* not JSON */ }
-  const failed = !res.ok || /"(error|errorMessage|exception)"\s*:\s*"[^"]/i.test(raw) || body?.status === "FAILED";
-  const rows = (rowsOf(body) ?? []).map(r => Object.fromEntries(Object.entries(r).map(([k, v]) => [k.toLowerCase(), v == null ? "" : String(v)])));
-  return { ok: !failed, status: res.status, rows, raw };
+  let rows: Record<string, any>[] = [];
+  if (body && Array.isArray(body.headers) && Array.isArray(body.data)) {
+    const cols: string[] = body.headers.map((h: any) => String(typeof h === "string" ? h : h?.name ?? h));
+    rows = body.data.map((r: any[]) => Object.fromEntries(cols.map((c, i) => [c, r[i]])));
+  } else rows = rowsOf(body) ?? [];
+  const out = rows.map(r => Object.fromEntries(Object.entries(r).map(([k, v]) => [k.toLowerCase(), v == null ? "" : String(v)])));
+  return { ok: res.ok, status: res.status, rows: out, raw };
 }
