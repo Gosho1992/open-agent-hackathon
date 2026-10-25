@@ -28,7 +28,7 @@ async function sql(stmt: string, { allowFail = false } = {}): Promise<any> {
   const text = r.raw;
   const ok = r.ok || /already exist/i.test(text);   // re-runs are idempotent
   log.push("```sql", stmt.trim(), "```", `→ ${ok ? "OK" : "FAILED (HTTP " + r.status + ")"} ${text.slice(0, 400).replace(/\n/g, " ")}`, "");
-  console.log(`${ok ? "OK  " : "FAIL"} ${stmt.trim().split("\n")[0].slice(0, 90)}${ok ? "" : "\n     " + text.slice(0, 300).replace(/\n/g, " ")}`);
+  console.log(`${ok ? "OK  " : "FAIL"} ${stmt.trim().split("\n")[0].slice(0, 90)}${ok ? "" : "\n     " + text.slice(0, 1500)}`);
   if (!ok && !allowFail) { flush(); throw new Error(`Zetaris: HTTP ${r.status} ${text.slice(0, 300)}`); }
   return r.rows;
 }
@@ -119,22 +119,22 @@ CREATE TABLE vitality_reanalysis (
 
 const T = (t: string) => `${USL}.${t}`;
 await sql(`ACTIVATE USL TABLE ${T("review")} AS
-SELECT CAST(review_doi AS STRING) AS review_doi, short_name, title, journal, CAST(year AS INT) AS year, role FROM ${RAW}.reviews_raw`);
+SELECT COALESCE(CAST(review_doi AS STRING), '') AS review_doi, short_name, title, journal, CAST(year AS INT) AS year, role FROM ${RAW}.reviews_raw`);
 await sql(`ACTIVATE USL TABLE ${T("retraction")} AS
 SELECT COALESCE(CAST(Record_ID AS INT), 0) AS record_id, lower(OriginalPaperDOI) AS original_doi, Title AS title, Journal AS journal,
   CASE WHEN RetractionNature = 'Retraction' AND Reason LIKE '%Retract and Replace%' THEN 'Retract and replace' ELSE RetractionNature END AS notice,
   RetractionDate AS notice_date, Reason AS reason
 FROM ${RAW}.rw_raw`);
 await sql(`ACTIVATE USL TABLE ${T("study_outcome")} AS
-SELECT concat(review_doi, '|', outcome, '|', study) AS row_id, review_doi, outcome, study, lower(study_doi) AS study_doi,
+SELECT COALESCE(concat(review_doi, '|', outcome, '|', study), '') AS row_id, review_doi, outcome, study, lower(study_doi) AS study_doi,
   CAST(treat_events AS INT) AS treat_events, CAST(treat_n AS INT) AS treat_n, CAST(ctrl_events AS INT) AS ctrl_events, CAST(ctrl_n AS INT) AS ctrl_n
 FROM ${RAW}.studies_raw`);
 await sql(`ACTIVATE USL TABLE ${T("published_estimate")} AS
-SELECT concat(review_doi, '|', outcome, '|', scenario) AS row_id, review_doi, outcome, scenario, method, measure,
+SELECT COALESCE(concat(review_doi, '|', outcome, '|', scenario), '') AS row_id, review_doi, outcome, scenario, method, measure,
   CAST(es AS DOUBLE) AS es, CAST(lci AS DOUBLE) AS lci, CAST(uci AS DOUBLE) AS uci
 FROM ${RAW}.pooled_raw`);
 await sql(`ACTIVATE USL TABLE ${T("vitality_reanalysis")} AS
-SELECT concat(status, '|', srfile, '|', meta_id, '|', subid, '|', rank) AS row_id, lower(doi) AS doi, status AS replication, methods AS method,
+SELECT COALESCE(concat_ws('|', status, srfile, meta_id, subid, rank), '') AS row_id, lower(doi) AS doi, status AS replication, methods AS method,
   effectsize AS measure, type AS analysis_type, CAST(noofstudies AS INT) AS n_studies, CAST(noofretraction AS INT) AS n_retracted,
   CAST(all_es AS DOUBLE) AS all_es, CAST(all_lci AS DOUBLE) AS all_lci, CAST(all_uci AS DOUBLE) AS all_uci,
   CAST(exclude_es AS DOUBLE) AS exclude_es, CAST(exclude_lci AS DOUBLE) AS exclude_lci, CAST(exclude_uci AS DOUBLE) AS exclude_uci
