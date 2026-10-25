@@ -49,7 +49,7 @@ log.push(`Copied ${Object.keys(files).length} CSV files into ${CONTAINER}:${STOR
 console.log("copied CSVs into the Zetaris file store");
 
 // ---- 2. raw sources ----
-await sql(`CREATE LIGHTNING DATABASE IF NOT EXISTS ${RAW} DESCRIBE BY "Aftershock raw evidence sources"`, { allowFail: true });
+await sql(`CREATE LIGHTNING DATABASE ${RAW} DESCRIBE BY "Aftershock raw evidence sources"`, { allowFail: true });
 for (const [t, f] of Object.entries(files)) {
   await sql(`DROP TABLE IF EXISTS ${RAW}.${t}`, { allowFail: true });
   await sql(`CREATE LIGHTNING FILESTORE TABLE ${t} FROM ${RAW} FORMAT CSV OPTIONS (PATH "${STORE}/${path.basename(f)}", header "true", inferSchema "false", multiLine "true", escape '"')`);
@@ -57,7 +57,7 @@ for (const [t, f] of Object.entries(files)) {
 await sql(`SELECT count(*) FROM ${RAW}.rw_raw`);
 
 // ---- 3. Unified Semantic Layer ----
-await sql(`CREATE NAMESPACE IF NOT EXISTS ${NS}`, { allowFail: true });
+await sql(`CREATE NAMESPACE ${NS}`, { allowFail: true });
 await sql(`COMPILE USL evidence DEPLOY NAMESPACE ${NS} DDL
 CREATE TABLE review (
   review_doi varchar(100) NOT NULL PRIMARY KEY,
