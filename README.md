@@ -96,7 +96,7 @@ It is a deliberately simple sequential pipeline: one language model for reading 
 |---|---|
 | `evidence/traces/live-zetaris_*audit-all.jsonl` | Full audit served from the Zetaris USL (29 SQL queries): the authoritative reference, the gate, notices, verdicts, cross-checks. Hash-chained; its `code_sha` equals this checkout's. |
 | `evidence/traces/live-zetaris_*audit-stroke.jsonl` | The recovery run against live Zetaris (fault injected → rejected → re-read → verified). |
-| `evidence/traces/explain_*.jsonl` | Nemotron-via-Nightshift explanations for that live result, with full signed receipts. Its first lines record the sha256 of the live result it explained. |
+| `evidence/traces/explain_*.jsonl` | Six Nemotron 3 Ultra calls via Nightshift (`provider=nightshift->openrouter`, `label=Nemotron 3 Ultra (Free)`), each with its full signed receipt (`body`, `pubkey_b64`, `sig_b64`). The grounding gate accepted 5 explanations and withheld 1 because the model wrote a number ("2002"). The `input.result` line binds it to the live run by that run's trace head (`5cdeaba8…`); its sha256 is of the Windows (CRLF) checkout of the result file. |
 | `evidence/zetaris_setup_log.md` | Every Zetaris statement and its response. |
 | `evidence/tests.txt`, `evidence/hmem_conformance.txt`, `evidence/hmem_policy_demo.txt` | Test, conformance and H-MEM control output. |
 
