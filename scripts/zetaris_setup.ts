@@ -25,7 +25,8 @@ const log: string[] = ["# Zetaris setup log", "", `Run ${new Date().toISOString(
 
 async function sql(stmt: string, { allowFail = false } = {}): Promise<any> {
   const r = await zquery(stmt, 20);
-  const ok = r.ok, text = r.raw;
+  const text = r.raw;
+  const ok = r.ok || /already exist/i.test(text);   // re-runs are idempotent
   log.push("```sql", stmt.trim(), "```", `→ ${ok ? "OK" : "FAILED (HTTP " + r.status + ")"} ${text.slice(0, 400).replace(/\n/g, " ")}`, "");
   console.log(`${ok ? "OK  " : "FAIL"} ${stmt.trim().split("\n")[0].slice(0, 90)}${ok ? "" : "\n     " + text.slice(0, 300).replace(/\n/g, " ")}`);
   if (!ok && !allowFail) { flush(); throw new Error(`Zetaris: HTTP ${r.status} ${text.slice(0, 300)}`); }
@@ -51,7 +52,6 @@ console.log("copied CSVs into the Zetaris file store");
 // ---- 2. raw sources ----
 await sql(`CREATE LIGHTNING DATABASE ${RAW} DESCRIBE BY "Aftershock raw evidence sources"`, { allowFail: true });
 for (const [t, f] of Object.entries(files)) {
-  await sql(`DROP TABLE IF EXISTS ${RAW}.${t}`, { allowFail: true });
   await sql(`CREATE LIGHTNING FILESTORE TABLE ${t} FROM ${RAW} FORMAT CSV OPTIONS (PATH "${STORE}/${path.basename(f)}", header "true", inferSchema "false", multiLine "true", escape '"')`);
 }
 const [cnt] = await sql(`SELECT count(*) AS n FROM ${RAW}.rw_raw`);
