@@ -50,6 +50,13 @@ async function main() {
     console.log(`code_sha in trace: ${first.code_sha}\ncode_sha of this checkout: ${codeSha()}  ${first.code_sha === codeSha() ? "(same code)" : "(different code)"}`);
     process.exit(v.ok ? 0 : 1);
   }
+  if (cmd === "render") {
+    const { renderHtml } = await import("./render.ts");
+    const out = rest[0] ?? sub.replace(/\.result\.json$|\.json$/, "") + ".html";
+    fs.writeFileSync(out, renderHtml(JSON.parse(fs.readFileSync(sub, "utf8"))));
+    console.log(`report: ${out}`);
+    return;
+  }
   if (cmd === "explain") {
     // Reports for an existing result. The live-Zetaris audit runs where Zetaris runs; Nightshift runs on
     // the reviewer's machine. This step binds the two: its trace records the input result's sha256.
@@ -67,7 +74,7 @@ async function main() {
     console.log(`  trace:  ${file}\n  result: ${out}`);
     return;
   }
-  if (cmd !== "audit") { console.log("usage: audit [--outcome X] [--corrupt] [--report] | explain <result.json> | verify-trace <trace.jsonl> | policy set <notice> exclude|keep | policy show"); return; }
+  if (cmd !== "audit") { console.log("usage: audit [--outcome X] [--corrupt] [--report] | render <result.json> [out.html] | explain <result.json> | verify-trace <trace.jsonl> | policy set <notice> exclude|keep | policy show"); return; }
 
   const outcomes = opt("outcome", "") ? [opt("outcome", "")] : OUTCOMES;
   const file = startRun(`audit-${outcomes.length === 1 ? outcomes[0] : "all"}`);
