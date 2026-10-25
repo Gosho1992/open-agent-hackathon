@@ -1,0 +1,22 @@
+name: ci
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  sample-mode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund
+      - run: npm run setup            # vendors the Meterless H-MEM reference engine
+      - run: npx tsc --noEmit -p .
+      - run: npm test                 # statistics + agent-loop safety tests
+      - run: npm run conformance      # H-MEM conformance suite
+      - name: Sample-mode audit (no services, no keys)
+        run: SAMPLE_MODE=true EXTRACTION=curated npm run audit
+      - name: Recovery demo (fault injected, gate rejects, re-read passes)
+        run: SAMPLE_MODE=true EXTRACTION=curated npm run audit -- --outcome Stroke --corrupt
+      - name: Verify the hash chain of every trace produced
+        run: for f in .aftershock/traces/*.jsonl; do npm run -s verify-trace -- "$f"; done
+      - name: Verify the committed evidence traces
+        run: for f in evidence/traces/*.jsonl; do [ -e "$f" ] && npm run -s verify-trace -- "$f" || true; done
