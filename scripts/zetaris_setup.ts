@@ -11,13 +11,10 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
 import { execFileSync } from "node:child_process";
+import { zquery } from "../src/zetaris.ts";
 
-const REST = (process.env.ZETARIS_REST_URL ?? "http://localhost:8888/api/v1.0").replace(/\/+$/, "");
-const ORG = process.env.ZETARIS_ORG_ID ?? "1";
-const KEY = process.env.ZETARIS_API_KEY;
-if (!KEY) { console.error("Set ZETARIS_API_KEY in .env (create it in the Zetaris UI)."); process.exit(1); }
+const REST = process.env.ZETARIS_URL ?? "http://localhost:3000";
 
 const CONTAINER = process.env.ZETARIS_DRIVER ?? "zetaris-driver-1";
 const STORE = "/home/zetaris/customer-data/shared/aftershock";
@@ -27,17 +24,12 @@ const USL = `${NS}.evidence`;
 const log: string[] = ["# Zetaris setup log", "", `Run ${new Date().toISOString()} against ${REST}`, ""];
 
 async function sql(stmt: string, { allowFail = false } = {}): Promise<any> {
-  const res = await fetch(`${REST}/sql-editor/sqls/run`, {
-    method: "POST",
-    headers: { authorization: `Bearer ${KEY}`, "x-org-id": ORG, "x-request-id": crypto.randomUUID(), "content-type": "application/json" },
-    body: JSON.stringify({ queryId: crypto.randomUUID(), sql: stmt.trim(), source: "SqlEditor", limit: 20 }),
-  });
-  const text = await res.text();
-  const ok = res.ok;
-  log.push("```sql", stmt.trim(), "```", `→ ${ok ? "OK" : "HTTP " + res.status} ${text.slice(0, 400).replace(/\n/g, " ")}`, "");
-  console.log(`${ok ? "OK  " : "FAIL"} ${stmt.trim().split("\n")[0].slice(0, 90)}`);
-  if (!ok && !allowFail) { flush(); throw new Error(`Zetaris: HTTP ${res.status} ${text.slice(0, 300)}`); }
-  try { return JSON.parse(text); } catch { return text; }
+  const r = await zquery(stmt, 20);
+  const ok = r.ok, text = r.raw;
+  log.push("```sql", stmt.trim(), "```", `→ ${ok ? "OK" : "FAILED (HTTP " + r.status + ")"} ${text.slice(0, 400).replace(/\n/g, " ")}`, "");
+  console.log(`${ok ? "OK  " : "FAIL"} ${stmt.trim().split("\n")[0].slice(0, 90)}${ok ? "" : "\n     " + text.slice(0, 300).replace(/\n/g, " ")}`);
+  if (!ok && !allowFail) { flush(); throw new Error(`Zetaris: HTTP ${r.status} ${text.slice(0, 300)}`); }
+  return r.rows;
 }
 const flush = () => { fs.mkdirSync("evidence", { recursive: true }); fs.writeFileSync("evidence/zetaris_setup_log.md", log.join("\n")); };
 

@@ -88,7 +88,7 @@ SAMPLE_MODE=true EXTRACTION=curated npm run audit
 **Live mode:** Zetaris + Nightshift.
 
 ```bash
-cp .env.example .env     # add the Nightshift token and your Zetaris API key
+cp .env.example .env     # add the Nightshift token (Zetaris login is read from the platform .env)
 npm run zetaris:setup    # loads data, builds the USL and DQ rules (run where Zetaris runs)
 npm run audit -- --report
 npm run policy set "Expression of concern" exclude    # session 1: reviewer sets a rule (H-MEM)

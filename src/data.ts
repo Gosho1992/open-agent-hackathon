@@ -2,16 +2,13 @@
 // required data layer), over its REST API. In SAMPLE_MODE the same queries are answered
 // from the CSV files in data/, so the pipeline runs with no Zetaris instance.
 //
-// Zetaris tables (registered by scripts/zetaris_setup.sql):
-//   AFTERSHOCK.retractions      Retraction Watch, health-science subset
-//   AFTERSHOCK.reviews          the meta-analyses Aftershock audits
-//   AFTERSHOCK.answer_key       VITALITY Study I recalculations (ground truth for evaluation)
-//   AFTERSHOCK.published_pooled pooled estimates as printed in each review
+// Zetaris "evidence" USL tables (built by scripts/zetaris_setup.ts):
+//   review, retraction, study_outcome, published_estimate, vitality_reanalysis
 
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
 import { trace } from "./trace.ts";
+import { zquery } from "./zetaris.ts";
 
 export interface RetractionRecord { doi: string; title: string; journal: string; nature: string; date: string; reason: string; recordId: string }
 export interface Review { review_doi: string; short_name: string; title: string; journal: string; year: string; role: string; questioned_trials: string; notes: string }
@@ -20,9 +17,6 @@ export interface AnswerKeyRow { doi: string; methods: string; effectsize: string
 
 const SAMPLE = process.env.SAMPLE_MODE === "true" || process.env.DATA_SOURCE === "csv";
 const DATA = path.resolve("data");
-const REST = (process.env.ZETARIS_REST_URL ?? "http://localhost:8888/api/v1.0").replace(/\/+$/, "");
-const ORG = process.env.ZETARIS_ORG_ID ?? "1";
-const KEY = process.env.ZETARIS_API_KEY ?? "";
 const DB = process.env.ZETARIS_DB ?? "lightning.metastore.aftershock.evidence";   // the Unified Semantic Layer
 
 // ---------- CSV (sample mode) ----------
@@ -47,20 +41,10 @@ const csv = (f: string) => { if (!cache.has(f)) cache.set(f, parseCsv(fs.readFil
 // ---------- Zetaris (live mode) ----------
 async function zsql(sql: string, purpose: string): Promise<Record<string, string>[]> {
   const t0 = Date.now();
-  const res = await fetch(`${REST}/sql-editor/sqls/run`, {
-    method: "POST",
-    headers: { authorization: `Bearer ${KEY}`, "x-org-id": ORG, "x-request-id": crypto.randomUUID(), "content-type": "application/json" },
-    body: JSON.stringify({ queryId: crypto.randomUUID(), sql, source: "SqlEditor", limit: 5000 }),
-    signal: AbortSignal.timeout(120_000),
-  });
-  if (!res.ok) throw new Error(`Zetaris HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const out: any = await res.json();
-  // The REST API returns { columns: [...], data: [[...]] } or { data: [{...}] } depending on build; accept both.
-  const data = out?.data ?? [];
-  const cols: string[] = (out?.columns ?? out?.schema ?? []).map((c: any) => (typeof c === "string" ? c : c.name ?? c.columnName));
-  const rows = Array.isArray(data[0]) ? data.map((r: any[]) => Object.fromEntries(cols.map((c, i) => [c.toLowerCase(), String(r[i] ?? "")]))) : data.map((r: any) => Object.fromEntries(Object.entries(r).map(([k, v]) => [k.toLowerCase(), String(v ?? "")])));
-  trace("zetaris.query", { purpose, rows: rows.length, ms: Date.now() - t0, sql: sql.replace(/\s+/g, " ").slice(0, 160) });
-  return rows;
+  const r = await zquery(sql);
+  if (!r.ok) throw new Error(`Zetaris HTTP ${r.status}: ${r.raw.slice(0, 300)}`);
+  trace("zetaris.query", { purpose, rows: r.rows.length, ms: Date.now() - t0, sql: sql.replace(/\s+/g, " ").slice(0, 160) });
+  return r.rows;
 }
 const lit = (s: string) => `'${s.replace(/'/g, "''")}'`;
 
