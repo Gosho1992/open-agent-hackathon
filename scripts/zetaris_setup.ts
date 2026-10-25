@@ -18,7 +18,7 @@ const REST = process.env.ZETARIS_URL ?? "http://localhost:3000";
 
 const CONTAINER = process.env.ZETARIS_DRIVER ?? "zetaris-driver-1";
 const STORE = "/home/zetaris/customer-data/shared/aftershock";
-const RAW = "AFTERSHOCK_RAW";
+const RAW = "AFTERSHOCK_SRC";   // raw filestore tables (Zetaris cannot drop a filestore view, so a schema change gets a new database)
 const NS = "lightning.metastore.aftershock";
 const USL = `${NS}.evidence`;
 const log: string[] = ["# Zetaris setup log", "", `Run ${new Date().toISOString()} against ${REST}`, ""];
@@ -52,7 +52,6 @@ console.log("copied CSVs into the Zetaris file store");
 // ---- 2. raw sources ----
 await sql(`CREATE LIGHTNING DATABASE ${RAW} DESCRIBE BY "Aftershock raw evidence sources"`, { allowFail: true });
 for (const [t, f] of Object.entries(files)) {
-  await sql(`DROP VIEW IF EXISTS ${RAW}.${t}`, { allowFail: true });
   await sql(`CREATE LIGHTNING FILESTORE TABLE ${t} FROM ${RAW} FORMAT CSV OPTIONS (PATH "${STORE}/${path.basename(f)}", header "true", inferSchema "false", multiLine "true", escape '"')`);
 }
 const [cnt] = await sql(`SELECT count(*) AS n FROM ${RAW}.rw_raw`);
@@ -61,7 +60,6 @@ console.log(`     Retraction Watch rows in Zetaris: ${cnt?.n ?? JSON.stringify(c
 // ---- 3. Unified Semantic Layer ----
 await sql(`CREATE NAMESPACE lightning.metastore`, { allowFail: true });
 await sql(`CREATE NAMESPACE ${NS}`, { allowFail: true });
-for (const d of [`DROP USL ${USL}`, `DROP USL evidence FROM NAMESPACE ${NS}`, `DROP USL evidence IN NAMESPACE ${NS}`]) await sql(d, { allowFail: true });
 await sql(`COMPILE USL evidence DEPLOY NAMESPACE ${NS} DDL
 CREATE TABLE review (
   review_doi varchar(100) NOT NULL PRIMARY KEY,
