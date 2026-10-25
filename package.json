@@ -12,6 +12,7 @@
     "policy": "tsx --env-file-if-exists=.env src/cli.ts policy",
     "explain": "tsx --env-file-if-exists=.env src/cli.ts explain",
     "verify-trace": "tsx src/cli.ts verify-trace",
+    "evidence:explain": "tsx scripts/explain_evidence.ts",
     "conformance": "tsx conformance/runner.ts",
     "zetaris:setup": "tsx --env-file-if-exists=.env scripts/zetaris_setup.ts"
   },
