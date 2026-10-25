@@ -1,0 +1,74 @@
+{
+  "review": "10.1371/journal.pone.0159252",
+  "data_source": "zetaris",
+  "code_sha": "7562c200ca2b00d86843a036befb2b7ae23864eceb02cc09e4c2b97b106e4285",
+  "trace_head": "9a758cfe7d6f86e8f8ebec7c3805a9f58afa2952ff7740b9421de3078455c47f",
+  "policy": {
+    "exclude": {
+      "Retraction": true,
+      "Retract and replace": true,
+      "Expression of concern": false,
+      "Correction": false,
+      "Reinstatement": false,
+      "None": false
+    },
+    "provenance": {}
+  },
+  "results": [
+    {
+      "status": "NEEDS_HUMAN_REVIEW",
+      "outcome": "MACE",
+      "attempts": 0,
+      "excluded": [],
+      "kept": [],
+      "models": [],
+      "reason": "audit could not run safely: Zetaris HTTP 400: {\"msg\":\"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin"
+    },
+    {
+      "status": "NEEDS_HUMAN_REVIEW",
+      "outcome": "Coronary events",
+      "attempts": 0,
+      "excluded": [],
+      "kept": [],
+      "models": [],
+      "reason": "audit could not run safely: Zetaris HTTP 400: {\"msg\":\"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin"
+    },
+    {
+      "status": "NEEDS_HUMAN_REVIEW",
+      "outcome": "Stroke",
+      "attempts": 0,
+      "excluded": [],
+      "kept": [],
+      "models": [],
+      "reason": "audit could not run safely: Zetaris HTTP 400: {\"msg\":\"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin"
+    },
+    {
+      "status": "NEEDS_HUMAN_REVIEW",
+      "outcome": "CVD mortality",
+      "attempts": 0,
+      "excluded": [],
+      "kept": [],
+      "models": [],
+      "reason": "audit could not run safely: Zetaris HTTP 400: {\"msg\":\"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin"
+    },
+    {
+      "status": "NEEDS_HUMAN_REVIEW",
+      "outcome": "All-cause mortality",
+      "attempts": 0,
+      "excluded": [],
+      "kept": [],
+      "models": [],
+      "reason": "audit could not run safely: Zetaris HTTP 400: {\"msg\":\"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin"
+    },
+    {
+      "status": "NEEDS_HUMAN_REVIEW",
+      "outcome": "Heart failure",
+      "attempts": 0,
+      "excluded": [],
+      "kept": [],
+      "models": [],
+      "reason": "audit could not run safely: Zetaris HTTP 400: {\"msg\":\"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin"
+    }
+  ],
+  "impact": null
+}

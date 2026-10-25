@@ -1,0 +1,10 @@
+.env not found. Continuing without it.
+.env not found. Continuing without it.
+
+  outcome               published                        recalculated                     verdict              VITALITY
+  Stroke                -                                -                                NEEDS_HUMAN_REVIEW   -
+
+  Stroke: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
+
+  trace:  /workspaces/open-agent-hackathon/.aftershock/traces/2026-10-25T13-26-03-296Z_audit-stroke.jsonl
+  result: /workspaces/open-agent-hackathon/.aftershock/traces/2026-10-25T13-26-03-296Z_audit-stroke.result.json
