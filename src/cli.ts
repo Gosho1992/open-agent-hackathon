@@ -3,7 +3,9 @@
 //   npx tsx src/cli.ts policy set "Expression of concern" exclude   (stored in H-MEM)
 //   npx tsx src/cli.ts policy show
 
+import fs from "node:fs";
 import { startRun, trace } from "./trace.ts";
+import { traceImpact } from "./impact.ts";
 import { auditCase } from "./agent.ts";
 import { loadPolicy, setRule } from "./hmem/policyMemory.ts";
 import type { Notice } from "./policy.ts";
@@ -45,6 +47,18 @@ async function main() {
     console.log(`  ${r.outcome.padEnd(21)} ${f(r.original).padEnd(32)} ${f(r.recalculated).padEnd(32)} ${(r.verdict?.headline ?? r.status).padEnd(20)} ${r.crossCheck?.agrees === true ? "agrees" : r.crossCheck?.agrees === false ? "DIFFERS" : "-"}`);
     if (r.report) console.log(`\n${r.report}\n`);
   }
-  console.log(`\n  trace: ${file}`);
+  // Impact Tracer runs only when at least one outcome changed.
+  let impact = null;
+  if (results.some(r => r.verdict && r.verdict.headline !== "HOLDS")) {
+    try {
+      impact = await traceImpact(REVIEW);
+      console.log(`\n  Impact: cited by ${impact.citedByCount} works (${impact.sampled} scanned). Potentially affected: ${impact.guidelines.length} guideline-type documents, ${impact.reviews.length} later reviews.`);
+      for (const g of impact.guidelines.slice(0, 5)) console.log(`    - [guideline] ${g.year} ${g.title.slice(0, 110)}`);
+    } catch (e) { trace("impact.error", { error: String(e) }); }
+  }
+
+  const runFile = file.replace(/\.jsonl$/, ".result.json");
+  fs.writeFileSync(runFile, JSON.stringify({ review: REVIEW, policy, results, impact }, null, 2));
+  console.log(`\n  trace:  ${file}\n  result: ${runFile}`);
 }
 main().catch(e => { console.error(e); process.exit(1); });
