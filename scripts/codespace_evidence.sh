@@ -6,7 +6,10 @@ cd /workspaces/open-agent-hackathon || exit 1
 git pull -q origin main
 npm install -s >/dev/null 2>&1
 [ -d vendor/hmem ] || npm run -s setup >/dev/null 2>&1
-bash scripts/start-zetaris.sh 2>&1 | grep -E "PASS|FAIL"
+# A stopped driver keeps GBs of Spark scratch in its writable layer: recreate it (data lives in volumes).
+[ "$(docker inspect zetaris-driver-1 --format '{{.State.Status}}' 2>/dev/null)" = running ] || docker rm -f zetaris-driver-1 >/dev/null 2>&1
+df -h / | tail -1
+bash scripts/start-zetaris.sh > /workspaces/start.log 2>&1; grep -E "PASS|FAIL|rror" /workspaces/start.log | head -20
 for i in $(seq 1 40); do [ "$(docker inspect zetaris-driver-1 --format '{{.State.Health.Status}}')" = healthy ] && break; sleep 10; done
 echo "driver: $(docker inspect zetaris-driver-1 --format '{{.State.Health.Status}}')"
 npm run -s zetaris:setup 2>&1 | grep -vE "^\.env"
