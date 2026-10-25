@@ -23,7 +23,7 @@ const DATA = path.resolve("data");
 const REST = (process.env.ZETARIS_REST_URL ?? "http://localhost:8888/api/v1.0").replace(/\/+$/, "");
 const ORG = process.env.ZETARIS_ORG_ID ?? "1";
 const KEY = process.env.ZETARIS_API_KEY ?? "";
-const DB = process.env.ZETARIS_DB ?? "AFTERSHOCK";
+const DB = process.env.ZETARIS_DB ?? "lightning.metastore.aftershock.evidence";   // the Unified Semantic Layer
 
 // ---------- CSV (sample mode) ----------
 function parseCsv(text: string): Record<string, string>[] {
@@ -73,8 +73,9 @@ export async function retractionStatus(dois: string[]): Promise<RetractionRecord
     trace("data.query", { source: "csv:retraction_watch_health", purpose: "retraction status", rows: rows.length });
     return rows.map(r => ({ doi: r.OriginalPaperDOI, title: r.Title, journal: r.Journal, nature: r.RetractionNature, date: r.RetractionDate, reason: r.Reason, recordId: r.Record_ID }));
   }
-  const rows = await zsql(`SELECT originalpaperdoi, title, journal, retractionnature, retractiondate, reason, record_id FROM ${DB}.retractions WHERE lower(originalpaperdoi) IN (${wanted.map(lit).join(",")})`, "retraction status");
-  return rows.map(r => ({ doi: r.originalpaperdoi, title: r.title, journal: r.journal, nature: r.retractionnature, date: r.retractiondate, reason: r.reason, recordId: r.record_id }));
+  const rows = await zsql(`SELECT record_id, original_doi, title, journal, notice, notice_date, reason FROM ${DB}.retraction WHERE original_doi IN (${wanted.map(lit).join(",")})`, "retraction status");
+  // The USL already normalises 'Retract and replace' into the notice column; keep nature/reason for noticeOf().
+  return rows.map(r => ({ doi: r.original_doi, title: r.title, journal: r.journal, nature: r.notice === "Retract and replace" ? "Retraction" : r.notice, date: r.notice_date, reason: r.notice === "Retract and replace" ? `Retract and Replace;${r.reason}` : r.reason, recordId: r.record_id }));
 }
 
 export async function review(doi: string): Promise<Review> {
@@ -84,7 +85,7 @@ export async function review(doi: string): Promise<Review> {
     trace("data.query", { source: "csv:reviews", purpose: "review metadata", rows: 1 });
     return r as unknown as Review;
   }
-  const [r] = await zsql(`SELECT * FROM ${DB}.reviews WHERE lower(review_doi) = ${lit(doi.toLowerCase())}`, "review metadata");
+  const [r] = await zsql(`SELECT * FROM ${DB}.review WHERE lower(review_doi) = ${lit(doi.toLowerCase())}`, "review metadata");
   if (!r) throw new Error(`unknown review ${doi}`);
   return r as unknown as Review;
 }
@@ -96,7 +97,7 @@ export async function publishedPooled(doi: string, outcome: string): Promise<Pub
     trace("data.query", { source: "csv:published_pooled", purpose: "published pooled estimate", rows: rows.length });
     return rows.map(map);
   }
-  return (await zsql(`SELECT * FROM ${DB}.published_pooled WHERE lower(review_doi) = ${lit(doi.toLowerCase())} AND outcome = ${lit(outcome)}`, "published pooled estimate")).map(map);
+  return (await zsql(`SELECT review_doi, outcome, scenario, method, measure, es, lci, uci, 'Zetaris USL' AS source FROM ${DB}.published_estimate WHERE lower(review_doi) = ${lit(doi.toLowerCase())} AND outcome = ${lit(outcome)}`, "published pooled estimate")).map(map);
 }
 
 export async function answerKey(doi: string): Promise<AnswerKeyRow[]> {
@@ -106,5 +107,17 @@ export async function answerKey(doi: string): Promise<AnswerKeyRow[]> {
     trace("data.query", { source: "csv:vitality_answer_key", purpose: "independent ground truth", rows: rows.length });
     return rows.map(map);
   }
-  return (await zsql(`SELECT * FROM ${DB}.answer_key WHERE lower(doi) = ${lit(doi.toLowerCase())} AND type = 'Total'`, "independent ground truth")).map(map);
+  return (await zsql(`SELECT doi, method AS methods, measure AS effectsize, n_studies AS noofstudies, n_retracted AS noofretraction, all_es, all_lci, all_uci, exclude_es, exclude_lci, exclude_uci, replication AS status FROM ${DB}.vitality_reanalysis WHERE doi = ${lit(doi.toLowerCase())} AND analysis_type = 'Total'`, "independent ground truth")).map(map);
+}
+
+export interface StudyRow { study: string; doi: string; treat_events: number; treat_n: number; ctrl_events: number; ctrl_n: number }
+/** Human-curated study-level counts (the extraction ground truth). */
+export async function studies(doi: string, outcome: string): Promise<StudyRow[]> {
+  const map = (r: Record<string, string>): StudyRow => ({ study: r.study, doi: r.study_doi, treat_events: +r.treat_events, treat_n: +r.treat_n, ctrl_events: +r.ctrl_events, ctrl_n: +r.ctrl_n });
+  if (SAMPLE) {
+    const rows = csv("studies/liyanage2016_med_diet.csv").filter(r => r.review_doi.toLowerCase() === doi.toLowerCase() && r.outcome === outcome);
+    trace("data.query", { source: "csv:studies", purpose: "curated study table", rows: rows.length });
+    return rows.map(map);
+  }
+  return (await zsql(`SELECT study, study_doi, treat_events, treat_n, ctrl_events, ctrl_n FROM ${DB}.study_outcome WHERE lower(review_doi) = ${lit(doi.toLowerCase())} AND outcome = ${lit(outcome)}`, "curated study table")).map(map);
 }

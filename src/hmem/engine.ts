@@ -14,7 +14,7 @@ const CANDIDATES = [
 ];
 
 export interface LoadedEngine {
-  HMEM: new (opts: { clock?: () => number; persistDir?: string }) => any;
+  HMEM: new (opts: { clock?: () => number; persistDir?: string; actor?: string }) => any;
   source: string;
 }
 

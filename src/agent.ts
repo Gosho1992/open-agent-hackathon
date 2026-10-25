@@ -54,15 +54,13 @@ const TOL = 0.011;                                  // published numbers are pri
 async function extract(input: CaseInput, feedback: string | null, models: string[]): Promise<Extraction> {
   const pub = (await data.publishedPooled(input.reviewDoi, input.outcome)).find(p => p.scenario === "all");
   if (MODE === "curated") {
-    // Human-curated table (data/studies). Used for development and as the extraction ground truth.
-    const file = path.resolve("data/studies/liyanage2016_med_diet.csv");
-    const rows = fs.readFileSync(file, "utf8").trim().split(/\r?\n/).slice(1).map(l => l.split(","))
-      .filter(c => c[0].toLowerCase() === input.reviewDoi.toLowerCase() && c[1] === input.outcome);
+    // Human-curated table (Zetaris USL study_outcome, or data/studies in sample mode).
+    const rows = await data.studies(input.reviewDoi, input.outcome);
     trace("extractor", { mode: "curated", rows: rows.length });
     if (!pub) throw new Error("no published pooled estimate on file");
     return {
       outcome: input.outcome, method: pub.method as Method, measure: pub.measure as Measure,
-      studies: rows.map(c => ({ study: c[2], doi: c[3], treat_events: +c[4], treat_n: +c[5], ctrl_events: +c[6], ctrl_n: +c[7] })),
+      studies: rows.map(r => ({ study: r.study, doi: r.doi, treat_events: r.treat_events, treat_n: r.treat_n, ctrl_events: r.ctrl_events, ctrl_n: r.ctrl_n })),
       published: { es: pub.es, lci: pub.lci, uci: pub.uci },
     };
   }

@@ -9,9 +9,13 @@
     "setup": "npx --yes degit meterless/meterless/engines/hmem/reference vendor/hmem && cd vendor/hmem && npm install --no-audit --no-fund",
     "test": "node --experimental-strip-types --test test/*.test.ts",
     "audit": "tsx --env-file-if-exists=.env src/cli.ts audit",
-    "policy": "tsx --env-file-if-exists=.env src/cli.ts policy"
+    "policy": "tsx --env-file-if-exists=.env src/cli.ts policy",
+    "conformance": "tsx conformance/runner.ts",
+    "zetaris:setup": "tsx --env-file-if-exists=.env scripts/zetaris_setup.ts"
   },
   "devDependencies": {
-    "tsx": "^4.23.15"
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
   }
 }
