@@ -1,0 +1,7 @@
+{
+  "text": "The original meta-analysis reported a statistically significant reduction in heart failure with RR 0.30 (95% CI 0.16 to 0.56). After applying the default exclusion policy, no studies were removed and the recalculated effect remained RR 0.30 (95% CI 0.16 to 0.56). Two studies remained in the analysis: de Lorgeril 1994 with no notices and Singh 2002 with an expression of concern. The verdict is HOLDS and the interpretation is CONCLUSION_SUPPORTED. An independent cross-check found no matching analysis in VITALITY due to a different exclusion set or outcome.",
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "provider": "nightshift->openrouter",
+  "ms": 8716,
+  "replayed": false
+}

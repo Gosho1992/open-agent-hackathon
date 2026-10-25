@@ -1,0 +1,7 @@
+{
+  "text": "The original meta-analysis reported a non-significant effect on all-cause mortality with RR 1.00 (95% CI 0.86 to 1.15). After excluding the retracted and replaced PREDIMED trial under default policy, the recalculated effect was RR 0.99 (95% CI 0.81 to 1.21), which remains non-significant as the confidence interval includes unity. Four studies remained in the analysis: Burr 2003, de Lorgeril 1994, and Ng 2011 with no notices, and Singh 2002 with an expression of concern. The verdict is HOLDS and the interpretation is CONCLUSION_SUPPORTED. An independent cross-check confirmed the recalculated RR 0.99 (95% CI 0.81 to 1.21) and agreed with the finding.",
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "provider": "nightshift->openrouter",
+  "ms": 14285,
+  "replayed": false
+}

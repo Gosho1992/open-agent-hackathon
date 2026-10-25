@@ -1,0 +1,7 @@
+{
+  "text": "The original meta-analysis reported a non-significant reduction in CVD mortality with RR 0.90 (95% CI 0.72 to 1.11). After excluding the retracted and replaced PREDIMED trial under default policy, the recalculated effect was RR 0.88 (95% CI 0.69 to 1.13), which remains non-significant as the confidence interval includes unity. Three studies remained in the analysis: Burr 2003 and de Lorgeril 1994 with no notices, and Singh 2002 with an expression of concern. The verdict is HOLDS and the interpretation is CONCLUSION_SUPPORTED. An independent cross-check confirmed the recalculated RR 0.88 (95% CI 0.69 to 1.13) and agreed with the finding.",
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "provider": "nightshift->openrouter",
+  "ms": 18084,
+  "replayed": false
+}

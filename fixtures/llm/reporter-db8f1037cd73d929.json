@@ -1,0 +1,7 @@
+{
+  "text": "The original meta-analysis reported a statistically significant reduction in stroke with RR 0.65 (95% CI 0.48 to 0.88). After excluding the retracted and replaced PREDIMED trial under default policy, the recalculated effect was RR 0.49 (95% CI 0.23 to 1.05), which lost statistical significance as the confidence interval now includes unity. Two studies remained in the analysis: de Lorgeril 1994 with no notices and Singh 2002 with an expression of concern. The verdict is SIGNIFICANCE_LOST and the interpretation is NEEDS_QUALIFICATION. An independent cross-check confirmed the recalculated RR 0.49 (95% CI 0.23 to 1.05) and agreed with the finding.",
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "provider": "nightshift->openrouter",
+  "ms": 5698,
+  "replayed": false
+}
