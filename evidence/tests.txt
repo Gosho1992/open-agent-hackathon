@@ -1,0 +1,33 @@
+ok 1 - vision circularity: a misread table cannot pass, because the reference comes from Zetaris, not the model
+ok 2 - recovery: a corrupted first reading is rejected, the re-read passes
+ok 3 - crash safety: an extractor that throws (bad JSON, model down) escalates instead of crashing
+ok 4 - crash safety: an unknown review escalates instead of crashing
+ok 5 - NaN safety: a missing published number fails validation (NaN > tol is false in JS)
+ok 6 - method/measure guard: Peto cannot produce an RR
+ok 7 - counts guard: zero participants or events > n are rejected before any statistics
+ok 8 - vision totals: totals read by the model must equal the printed totals on file
+ok 9 - identity fails closed: a study without DOI or PMID cannot be checked, so the audit stops
+ok 10 - identity: an unknown or missing study is never silently dropped
+ok 11 - identity: names as printed in the figure resolve ("Sing et al (2002)" -> Singh 2002, "Estruch et at (2013)")
+ok 12 - notices: an unrecognised notice type is never mapped to 'no notice'
+ok 13 - retraction lookup works by PMID when the DOI is absent
+ok 14 - cross-check uses a stable VITALITY key, and reports retract-and-replace honestly
+ok 15 - trace is tamper-evident: editing any line breaks the hash chain
+ok 16 - reproduces MACE (all)
+ok 17 - reproduces MACE (excl Singh 2002)
+ok 18 - reproduces CVD mortality (all)
+ok 19 - reproduces CVD mortality (excl Singh 2002)
+ok 20 - reproduces Coronary events (all)
+ok 21 - reproduces Coronary events (excl Singh 2002)
+ok 22 - reproduces Stroke (all)
+ok 23 - reproduces Stroke (excl Singh 2002)
+ok 24 - reproduces Heart failure (all)
+ok 25 - reproduces Heart failure (excl Singh 2002)
+ok 26 - reproduces All-cause mortality (all)
+ok 27 - reproduces All-cause mortality (excl Singh 2002)
+ok 28 - PREDIMED exclusion matches VITALITY answer key (MACE 0.43, 0.32-0.58)
+ok 29 - verdicts: Singh exclusion on coronary events loses significance; MACE holds
+ok 30 - Peto OR and DerSimonian-Laird run on simple data
+# tests 30
+# pass 30
+# fail 0

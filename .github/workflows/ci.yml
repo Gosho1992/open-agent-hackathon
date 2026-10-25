@@ -19,4 +19,4 @@ jobs:
       - name: Verify the hash chain of every trace produced
         run: for f in .aftershock/traces/*.jsonl; do npm run -s verify-trace -- "$f"; done
       - name: Verify the committed evidence traces
-        run: for f in evidence/traces/*.jsonl; do [ -e "$f" ] && npm run -s verify-trace -- "$f" || true; done
+        run: for f in evidence/traces/*.jsonl; do [ -e "$f" ] && npm run -s verify-trace -- "$f"; done
