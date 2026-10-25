@@ -1,0 +1,859 @@
+{
+  "review": "10.1371/journal.pone.0159252",
+  "data_source": "zetaris",
+  "code_sha": "7562c200ca2b00d86843a036befb2b7ae23864eceb02cc09e4c2b97b106e4285",
+  "trace_head": "9a41297705043f126d4e7d3952ed4527e3673e10f9833ca9de0ef8a6a5608f34",
+  "policy": {
+    "exclude": {
+      "Retraction": true,
+      "Retract and replace": true,
+      "Expression of concern": false,
+      "Correction": false,
+      "Reinstatement": false,
+      "None": false
+    },
+    "provenance": {}
+  },
+  "results": [
+    {
+      "status": "VERIFIED",
+      "outcome": "MACE",
+      "attempts": 1,
+      "original": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.6290372933753917,
+        "lci": 0.5251861303768911,
+        "uci": 0.7534241549240452,
+        "p": 4.777206368267173e-7,
+        "k": 3
+      },
+      "published": {
+        "es": 0.63,
+        "lci": 0.53,
+        "uci": 0.75,
+        "method": "Fixed MH",
+        "measure": "RR",
+        "source": "Zetaris USL"
+      },
+      "recalculated": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.4334867184959471,
+        "lci": 0.32335532175371484,
+        "uci": 0.581127702161363,
+        "p": 2.283835343064311e-8,
+        "k": 2
+      },
+      "excluded": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "rule": "default policy",
+          "scenario": "Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid.",
+          "replacement": "10.1056/NEJMoa1800389"
+        }
+      ],
+      "kept": [
+        {
+          "study": "de Lorgeril 1994",
+          "notice": "None"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern"
+        }
+      ],
+      "notices": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "date": "6/13/2018 0:00",
+          "noticeDoi": "10.1056/nejmc1806491",
+          "recordId": "18405",
+          "matchedOn": "doi"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern",
+          "date": "7/30/2005 0:00",
+          "noticeDoi": "10.1016/s0140-6736(05)67006-7",
+          "recordId": "23581",
+          "matchedOn": "doi"
+        }
+      ],
+      "verdict": {
+        "change": {
+          "directionFlipped": false,
+          "significanceChanged": "none",
+          "estimateShiftPct": -31.1,
+          "newEstimateInsideOldCI": false
+        },
+        "interpretation": "REVIEWER_ASSESSMENT_NEEDED",
+        "headline": "ESTIMATE_SHIFTED",
+        "reason": "Direction and significance are unchanged, but the new estimate lies outside the original confidence interval (larger effect)."
+      },
+      "crossCheck": {
+        "vitality": "RR 0.43 (0.32-0.58)",
+        "key": "711_5:1",
+        "agrees": true
+      },
+      "models": [
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      ],
+      "report": "Liyanage 2016 (PLoS One 2016), outcome: MACE.\nPublished (Fixed MH): RR 0.63 (95% CI 0.53 to 0.75); Aftershock reproduced it from the study table as RR 0.63 (95% CI 0.53 to 0.75).\nExcluded: Estruch 2013 (PREDIMED) (Retract and replace; default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid. Replacement publication: 10.1056/NEJMoa1800389.\nFlagged but kept by policy: Singh 2002 (Expression of concern).\nRecalculated: RR 0.43 (95% CI 0.32 to 0.58).\nVerdict: ESTIMATE_SHIFTED (REVIEWER_ASSESSMENT_NEEDED). Direction and significance are unchanged, but the new estimate lies outside the original confidence interval (larger effect).\nIndependent check (BMJ VITALITY, analysis 711_5:1): agrees - RR 0.43 (0.32-0.58).\n\n[Model explanation withheld: it contained numbers (2002). Only code-generated numbers are shown.]"
+    },
+    {
+      "status": "VERIFIED",
+      "outcome": "Coronary events",
+      "attempts": 1,
+      "original": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.647775183747414,
+        "lci": 0.49523207437986183,
+        "uci": 0.847305153254547,
+        "p": 0.0015276591193811306,
+        "k": 3
+      },
+      "published": {
+        "es": 0.65,
+        "lci": 0.5,
+        "uci": 0.85,
+        "method": "Fixed MH",
+        "measure": "RR",
+        "source": "Zetaris USL"
+      },
+      "recalculated": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.4954238483807001,
+        "lci": 0.3408565835838385,
+        "uci": 0.7200822908088917,
+        "p": 0.00023226842284862492,
+        "k": 2
+      },
+      "excluded": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "rule": "default policy",
+          "scenario": "Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid.",
+          "replacement": "10.1056/NEJMoa1800389"
+        }
+      ],
+      "kept": [
+        {
+          "study": "de Lorgeril 1994",
+          "notice": "None"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern"
+        }
+      ],
+      "notices": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "date": "6/13/2018 0:00",
+          "noticeDoi": "10.1056/nejmc1806491",
+          "recordId": "18405",
+          "matchedOn": "doi"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern",
+          "date": "7/30/2005 0:00",
+          "noticeDoi": "10.1016/s0140-6736(05)67006-7",
+          "recordId": "23581",
+          "matchedOn": "doi"
+        }
+      ],
+      "verdict": {
+        "change": {
+          "directionFlipped": false,
+          "significanceChanged": "none",
+          "estimateShiftPct": -23.5,
+          "newEstimateInsideOldCI": true
+        },
+        "interpretation": "NO_CHANGE_DETECTED",
+        "headline": "NO_CHANGE_DETECTED",
+        "reason": "No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call."
+      },
+      "crossCheck": {
+        "vitality": "RR 0.50 (0.34-0.72)",
+        "key": "711_5:3",
+        "agrees": true
+      },
+      "models": [
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      ],
+      "report": "Liyanage 2016 (PLoS One 2016), outcome: Coronary events.\nPublished (Fixed MH): RR 0.65 (95% CI 0.50 to 0.85); Aftershock reproduced it from the study table as RR 0.65 (95% CI 0.50 to 0.85).\nExcluded: Estruch 2013 (PREDIMED) (Retract and replace; default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid. Replacement publication: 10.1056/NEJMoa1800389.\nFlagged but kept by policy: Singh 2002 (Expression of concern).\nRecalculated: RR 0.50 (95% CI 0.34 to 0.72).\nVerdict: NO_CHANGE_DETECTED (NO_CHANGE_DETECTED). No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call.\nIndependent check (BMJ VITALITY, analysis 711_5:3): agrees - RR 0.50 (0.34-0.72).\n\nExplanation (openrouter/nvidia/nemotron-3-ultra-550b-a55b:free, via Nightshift): The original finding of a statistically significant reduction in coronary events remains intact after removing the retracted trial, with the recalculated effect showing a larger benefit that still falls within the original confidence interval. One of the two remaining studies carries an expression of concern, which reviewers should weigh when interpreting the evidence. An independent verification has confirmed the recalculated results. Reviewers should assess whether the shifted effect size alters the clinical interpretation and consider the implications of the flagged study for the overall certainty of the evidence."
+    },
+    {
+      "status": "VERIFIED",
+      "outcome": "Stroke",
+      "attempts": 1,
+      "original": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.6455905431792471,
+        "lci": 0.47557466833408246,
+        "uci": 0.8763863535929337,
+        "p": 0.0050146619181186125,
+        "k": 3
+      },
+      "published": {
+        "es": 0.65,
+        "lci": 0.48,
+        "uci": 0.88,
+        "method": "Fixed MH",
+        "measure": "RR",
+        "source": "Zetaris USL"
+      },
+      "recalculated": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.4890920412244354,
+        "lci": 0.22700867150066922,
+        "uci": 1.0537528069203277,
+        "p": 0.06780970394505914,
+        "k": 2
+      },
+      "excluded": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "rule": "default policy",
+          "scenario": "Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid.",
+          "replacement": "10.1056/NEJMoa1800389"
+        }
+      ],
+      "kept": [
+        {
+          "study": "de Lorgeril 1994",
+          "notice": "None"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern"
+        }
+      ],
+      "notices": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "date": "6/13/2018 0:00",
+          "noticeDoi": "10.1056/nejmc1806491",
+          "recordId": "18405",
+          "matchedOn": "doi"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern",
+          "date": "7/30/2005 0:00",
+          "noticeDoi": "10.1016/s0140-6736(05)67006-7",
+          "recordId": "23581",
+          "matchedOn": "doi"
+        }
+      ],
+      "verdict": {
+        "change": {
+          "directionFlipped": false,
+          "significanceChanged": "lost",
+          "estimateShiftPct": -24.2,
+          "newEstimateInsideOldCI": true
+        },
+        "interpretation": "REVIEWER_ASSESSMENT_NEEDED",
+        "headline": "SIGNIFICANCE_LOST",
+        "reason": "The original result was statistically significant; without the excluded studies the confidence interval includes no effect."
+      },
+      "crossCheck": {
+        "vitality": "RR 0.49 (0.23-1.05)",
+        "key": "711_5:4",
+        "agrees": true
+      },
+      "models": [
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      ],
+      "report": "Liyanage 2016 (PLoS One 2016), outcome: Stroke.\nPublished (Fixed MH): RR 0.65 (95% CI 0.48 to 0.88); Aftershock reproduced it from the study table as RR 0.65 (95% CI 0.48 to 0.88).\nExcluded: Estruch 2013 (PREDIMED) (Retract and replace; default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid. Replacement publication: 10.1056/NEJMoa1800389.\nFlagged but kept by policy: Singh 2002 (Expression of concern).\nRecalculated: RR 0.49 (95% CI 0.23 to 1.05).\nVerdict: SIGNIFICANCE_LOST (REVIEWER_ASSESSMENT_NEEDED). The original result was statistically significant; without the excluded studies the confidence interval includes no effect.\nIndependent check (BMJ VITALITY, analysis 711_5:4): agrees - RR 0.49 (0.23-1.05).\n\nExplanation (openrouter/nvidia/nemotron-3-ultra-550b-a55b:free, via Nightshift): The original meta-analysis found a statistically significant reduction in stroke, but after removing the retracted PREDIMED trial under standard policy the recalculated effect shows a larger point estimate with a confidence interval that now includes no effect, meaning statistical significance is lost. One remaining study carries an expression of concern, which reviewers should weigh when interpreting the evidence. An independent verification has confirmed the recalculated results. Reviewers should assess whether the shifted estimate changes the clinical interpretation and consider the implications of the flagged study for the overall certainty of the evidence."
+    },
+    {
+      "status": "VERIFIED",
+      "outcome": "CVD mortality",
+      "attempts": 1,
+      "original": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.8956504922752851,
+        "lci": 0.7205654246460167,
+        "uci": 1.1132782352234603,
+        "p": 0.3206955888836027,
+        "k": 4
+      },
+      "published": {
+        "es": 0.9,
+        "lci": 0.72,
+        "uci": 1.11,
+        "method": "Fixed MH",
+        "measure": "RR",
+        "source": "Zetaris USL"
+      },
+      "recalculated": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.8836764404582517,
+        "lci": 0.6880280500840572,
+        "uci": 1.134959615855145,
+        "p": 0.3327958337003709,
+        "k": 3
+      },
+      "excluded": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "rule": "default policy",
+          "scenario": "Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid.",
+          "replacement": "10.1056/NEJMoa1800389"
+        }
+      ],
+      "kept": [
+        {
+          "study": "Burr 2003",
+          "notice": "None"
+        },
+        {
+          "study": "de Lorgeril 1994",
+          "notice": "None"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern"
+        }
+      ],
+      "notices": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "date": "6/13/2018 0:00",
+          "noticeDoi": "10.1056/nejmc1806491",
+          "recordId": "18405",
+          "matchedOn": "doi"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern",
+          "date": "7/30/2005 0:00",
+          "noticeDoi": "10.1016/s0140-6736(05)67006-7",
+          "recordId": "23581",
+          "matchedOn": "doi"
+        }
+      ],
+      "verdict": {
+        "change": {
+          "directionFlipped": false,
+          "significanceChanged": "none",
+          "estimateShiftPct": -1.3,
+          "newEstimateInsideOldCI": true
+        },
+        "interpretation": "NO_CHANGE_DETECTED",
+        "headline": "NO_CHANGE_DETECTED",
+        "reason": "No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call."
+      },
+      "crossCheck": {
+        "vitality": "RR 0.88 (0.69-1.13)",
+        "key": "711_5:2",
+        "agrees": true
+      },
+      "models": [
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      ],
+      "report": "Liyanage 2016 (PLoS One 2016), outcome: CVD mortality.\nPublished (Fixed MH): RR 0.90 (95% CI 0.72 to 1.11); Aftershock reproduced it from the study table as RR 0.90 (95% CI 0.72 to 1.11).\nExcluded: Estruch 2013 (PREDIMED) (Retract and replace; default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid. Replacement publication: 10.1056/NEJMoa1800389.\nFlagged but kept by policy: Singh 2002 (Expression of concern).\nRecalculated: RR 0.88 (95% CI 0.69 to 1.13).\nVerdict: NO_CHANGE_DETECTED (NO_CHANGE_DETECTED). No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call.\nIndependent check (BMJ VITALITY, analysis 711_5:2): agrees - RR 0.88 (0.69-1.13).\n\nExplanation (openrouter/nvidia/nemotron-3-ultra-550b-a55b:free, via Nightshift): The original meta-analysis found no statistically significant effect on cardiovascular mortality. After removing the retracted PREDIMED trial, the recalculated effect remains non-significant and lies within the original confidence interval. One remaining study carries an expression of concern, which reviewers should weigh when interpreting the evidence. An independent verification confirms the recalculated results, and reviewers should consider whether the shifted estimate alters the clinical interpretation and the implications of the flagged study for overall certainty."
+    },
+    {
+      "status": "VERIFIED",
+      "outcome": "All-cause mortality",
+      "attempts": 1,
+      "original": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.9972746957344046,
+        "lci": 0.8612337986089706,
+        "uci": 1.1548046771486633,
+        "p": 0.9709069861281514,
+        "k": 5
+      },
+      "published": {
+        "es": 1,
+        "lci": 0.86,
+        "uci": 1.15,
+        "method": "Fixed MH",
+        "measure": "RR",
+        "source": "Zetaris USL"
+      },
+      "recalculated": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.989210759327135,
+        "lci": 0.8119723395006204,
+        "uci": 1.2051370210103312,
+        "p": 0.9142455490531836,
+        "k": 4
+      },
+      "excluded": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "rule": "default policy",
+          "scenario": "Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid.",
+          "replacement": "10.1056/NEJMoa1800389"
+        }
+      ],
+      "kept": [
+        {
+          "study": "Burr 2003",
+          "notice": "None"
+        },
+        {
+          "study": "de Lorgeril 1994",
+          "notice": "None"
+        },
+        {
+          "study": "Ng 2011",
+          "notice": "None"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern"
+        }
+      ],
+      "notices": [
+        {
+          "study": "Estruch 2013 (PREDIMED)",
+          "notice": "Retract and replace",
+          "date": "6/13/2018 0:00",
+          "noticeDoi": "10.1056/nejmc1806491",
+          "recordId": "18405",
+          "matchedOn": "doi"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern",
+          "date": "7/30/2005 0:00",
+          "noticeDoi": "10.1016/s0140-6736(05)67006-7",
+          "recordId": "23581",
+          "matchedOn": "doi"
+        }
+      ],
+      "verdict": {
+        "change": {
+          "directionFlipped": false,
+          "significanceChanged": "none",
+          "estimateShiftPct": -0.8,
+          "newEstimateInsideOldCI": true
+        },
+        "interpretation": "NO_CHANGE_DETECTED",
+        "headline": "NO_CHANGE_DETECTED",
+        "reason": "No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call."
+      },
+      "crossCheck": {
+        "vitality": "RR 0.99 (0.81-1.21)",
+        "key": "711_5:5",
+        "agrees": true
+      },
+      "models": [
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      ],
+      "report": "Liyanage 2016 (PLoS One 2016), outcome: All-cause mortality.\nPublished (Fixed MH): RR 1.00 (95% CI 0.86 to 1.15); Aftershock reproduced it from the study table as RR 1.00 (95% CI 0.86 to 1.15).\nExcluded: Estruch 2013 (PREDIMED) (Retract and replace; default policy). Scenario: exclude the retracted source record. The trial was republished with corrected data; this sensitivity analysis does not substitute the replacement and does not imply the trial's evidence is invalid. Replacement publication: 10.1056/NEJMoa1800389.\nFlagged but kept by policy: Singh 2002 (Expression of concern).\nRecalculated: RR 0.99 (95% CI 0.81 to 1.21).\nVerdict: NO_CHANGE_DETECTED (NO_CHANGE_DETECTED). No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call.\nIndependent check (BMJ VITALITY, analysis 711_5:5): agrees - RR 0.99 (0.81-1.21).\n\nExplanation (openrouter/nvidia/nemotron-3-ultra-550b-a55b:free, via Nightshift): After excluding the retracted trial and keeping a study with an expression of concern, the recalculated effect on all-cause mortality shows no meaningful shift in direction or statistical significance, and the new estimate falls within the original confidence interval. An independent verification confirms this recalculated result. Reviewers should weigh the implications of the flagged study for the overall certainty of the evidence and consider whether the shifted estimate alters the clinical interpretation."
+    },
+    {
+      "status": "VERIFIED",
+      "outcome": "Heart failure",
+      "attempts": 1,
+      "original": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.30350149145087646,
+        "lci": 0.164716286663351,
+        "uci": 0.5592231173907433,
+        "p": 0.00013142304925128911,
+        "k": 2
+      },
+      "published": {
+        "es": 0.3,
+        "lci": 0.17,
+        "uci": 0.56,
+        "method": "Fixed MH",
+        "measure": "RR",
+        "source": "Zetaris USL"
+      },
+      "recalculated": {
+        "method": "Fixed MH",
+        "measure": "RR",
+        "es": 0.30350149145087646,
+        "lci": 0.164716286663351,
+        "uci": 0.5592231173907433,
+        "p": 0.00013142304925128911,
+        "k": 2
+      },
+      "excluded": [],
+      "kept": [
+        {
+          "study": "de Lorgeril 1994",
+          "notice": "None"
+        },
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern"
+        }
+      ],
+      "notices": [
+        {
+          "study": "Singh 2002",
+          "notice": "Expression of concern",
+          "date": "7/30/2005 0:00",
+          "noticeDoi": "10.1016/s0140-6736(05)67006-7",
+          "recordId": "23581",
+          "matchedOn": "doi"
+        }
+      ],
+      "verdict": {
+        "change": {
+          "directionFlipped": false,
+          "significanceChanged": "none",
+          "estimateShiftPct": 0,
+          "newEstimateInsideOldCI": true
+        },
+        "interpretation": "NO_CHANGE_DETECTED",
+        "headline": "NO_CHANGE_DETECTED",
+        "reason": "No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call."
+      },
+      "crossCheck": {
+        "vitality": "no VITALITY analysis is registered for this outcome",
+        "agrees": null
+      },
+      "models": [
+        "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+      ],
+      "report": "Liyanage 2016 (PLoS One 2016), outcome: Heart failure.\nPublished (Fixed MH): RR 0.30 (95% CI 0.17 to 0.56); Aftershock reproduced it from the study table as RR 0.30 (95% CI 0.16 to 0.56).\nNo included study is excluded under the current policy.\nFlagged but kept by policy: Singh 2002 (Expression of concern).\nRecalculated: RR 0.30 (95% CI 0.16 to 0.56).\nVerdict: NO_CHANGE_DETECTED (NO_CHANGE_DETECTED). No change detected in direction or statistical significance, and the new estimate lies inside the original confidence interval. This is a statistical observation; clinical implications remain the reviewer's call.\nIndependent check (BMJ VITALITY): not available - no VITALITY analysis is registered for this outcome.\n\nExplanation (openrouter/nvidia/nemotron-3-ultra-550b-a55b:free, via Nightshift): The recalculated effect matches the original finding, showing a statistically significant reduction in heart failure with no change in direction or significance. No studies were excluded under the current policy, though one study carries an expression of concern and was retained. The verdict indicates no change detected, meaning the new estimate falls within the original confidence interval. An independent cross-check via BMJ VITALITY is not available for this outcome, so reviewers should examine the flagged study’s expression of concern and assess its potential impact."
+    }
+  ],
+  "impact": {
+    "reviewDoi": "10.1371/journal.pone.0159252",
+    "citedByCount": 209,
+    "sampled": 200,
+    "guidelines": [
+      {
+        "id": "https://openalex.org/W4404642276",
+        "title": "Eurasian clinical practice guidelines for dietary management of cardiovascular diseases (2024)",
+        "year": 2024,
+        "type": "article",
+        "doi": "https://doi.org/10.38109/2225-1685-2024-4-6-66",
+        "venue": "Eurasian heart journal",
+        "kind": "guideline"
+      },
+      {
+        "id": "https://openalex.org/W4292114749",
+        "title": "Japan Atherosclerosis Society (JAS) Guidelines for Prevention of Atherosclerotic Cardiovascular Diseases 2022",
+        "year": 2023,
+        "type": "article",
+        "doi": "https://doi.org/10.5551/jat.gl2022",
+        "venue": "Journal of Atherosclerosis and Thrombosis",
+        "kind": "guideline"
+      },
+      {
+        "id": "https://openalex.org/W2793096970",
+        "title": "Practical Dietary Recommendations for the Prevention and Management of Nonalcoholic Fatty Liver Disease in Adults",
+        "year": 2018,
+        "type": "article",
+        "doi": "https://doi.org/10.1093/advances/nmx007",
+        "venue": "Advances in Nutrition",
+        "kind": "guideline"
+      },
+      {
+        "id": "https://openalex.org/W2901788376",
+        "title": "Document of recommendations of the SEA 2018. Lifestyle in cardiovascular prevention",
+        "year": 2018,
+        "type": "article",
+        "doi": "https://doi.org/10.1016/j.artere.2018.11.001",
+        "venue": "Clínica e Investigación en Arteriosclerosis (English Edition)",
+        "kind": "guideline"
+      }
+    ],
+    "reviews": [
+      {
+        "id": "https://openalex.org/W4406287108",
+        "title": "The role of the Mediterranean diet in reducing the risk of cognitive impairement, dementia, and Alzheimer’s disease: a meta-analysis",
+        "year": 2025,
+        "type": "review",
+        "doi": "https://doi.org/10.1007/s11357-024-01488-3",
+        "venue": "GeroScience",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4417118867",
+        "title": "Preventing premature cardiovascular mortality: the role of lifestyle interventions and pharmacotherapy—a narrative review",
+        "year": 2025,
+        "type": "review",
+        "doi": "https://doi.org/10.3389/fcvm.2025.1664802",
+        "venue": "Frontiers in Cardiovascular Medicine",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4396569748",
+        "title": "The Mediterranean Diet, Its Microbiome Connections, and Cardiovascular Health: A Narrative Review",
+        "year": 2024,
+        "type": "review",
+        "doi": "https://doi.org/10.3390/ijms25094942",
+        "venue": "International Journal of Molecular Sciences",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4392352583",
+        "title": "Long-term impact of mediterranean diet on cardiovascular disease prevention: A systematic review and meta-analysis of randomized controlled trials",
+        "year": 2024,
+        "type": "review",
+        "doi": "https://doi.org/10.1016/j.cpcardiol.2024.102509",
+        "venue": "Current Problems in Cardiology",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4401623640",
+        "title": "The effectiveness of the Mediterranean Diet for primary and secondary prevention of cardiovascular disease: An umbrella review",
+        "year": 2024,
+        "type": "article",
+        "doi": "https://doi.org/10.1111/1747-0080.12891",
+        "venue": "Nutrition & Dietetics",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4398647030",
+        "title": "Alteration of the gut microbiome in patients with heart failure: A systematic review and meta-analysis",
+        "year": 2024,
+        "type": "review",
+        "doi": "https://doi.org/10.1016/j.micpath.2024.106647",
+        "venue": "Microbial Pathogenesis",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4403019435",
+        "title": "Effect of the Mediterranean diet on incidence of heart failure in European countries: a systematic review and meta-analysis of cohort studies",
+        "year": 2024,
+        "type": "review",
+        "doi": "https://doi.org/10.1038/s41430-024-01519-4",
+        "venue": "European Journal of Clinical Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4401664340",
+        "title": "Mediterranean diet enriched with olive oil shows no consistent benefits on cardiometabolic and anthropometric parameters: a systematic review with meta-analysis of randomized controlled trials",
+        "year": 2024,
+        "type": "review",
+        "doi": "https://doi.org/10.1007/s00394-024-03478-9",
+        "venue": "European Journal of Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4361196480",
+        "title": "Comparison of seven popular structured dietary programmes and risk of mortality and major cardiovascular events in patients at increased cardiovascular risk: systematic review and network meta-analysis",
+        "year": 2023,
+        "type": "review",
+        "doi": "https://doi.org/10.1136/bmj-2022-072003",
+        "venue": "BMJ",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4324134329",
+        "title": "Primary prevention of cardiovascular disease in women with a Mediterranean diet: systematic review and meta-analysis",
+        "year": 2023,
+        "type": "review",
+        "doi": "https://doi.org/10.1136/heartjnl-2022-321930",
+        "venue": "Heart",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4385271491",
+        "title": "Mediterranean diet and female reproductive health over lifespan: a systematic review and meta-analysis",
+        "year": 2023,
+        "type": "review",
+        "doi": "https://doi.org/10.1016/j.ajog.2023.05.030",
+        "venue": "American Journal of Obstetrics and Gynecology",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4387959176",
+        "title": "Scientific evidence supporting the newly developed one-health labeling tool “Med-Index”: an umbrella systematic review on health benefits of mediterranean diet principles and adherence in a planeterranean perspective",
+        "year": 2023,
+        "type": "review",
+        "doi": "https://doi.org/10.1186/s12967-023-04618-1",
+        "venue": "Journal of Translational Medicine",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4282929508",
+        "title": "Comparison of dietary and physical activity behaviors in women with and without polycystic ovary syndrome: a systematic review and meta-analysis of 39 471 women",
+        "year": 2022,
+        "type": "review",
+        "doi": "https://doi.org/10.1093/humupd/dmac023",
+        "venue": "Human Reproduction Update",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4293724594",
+        "title": "Nutrients and amyloid β status in the brain: A narrative review",
+        "year": 2022,
+        "type": "review",
+        "doi": "https://doi.org/10.1016/j.arr.2022.101728",
+        "venue": "Ageing Research Reviews",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W4309088350",
+        "title": "Health Benefits of Vegetarian and Mediterranean Diets: Narrative Review",
+        "year": 2022,
+        "type": "review",
+        "doi": "https://doi.org/10.31883/pjfns/156067",
+        "venue": "Polish Journal of Food and Nutrition Sciences",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W3195493570",
+        "title": "The promise of the gut microbiome as part of individualized treatment strategies",
+        "year": 2021,
+        "type": "review",
+        "doi": "https://doi.org/10.1038/s41575-021-00499-1",
+        "venue": "Nature Reviews Gastroenterology & Hepatology",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W3188316900",
+        "title": "What Links an Increased Cardiovascular Risk and Inflammatory Bowel Disease? A Narrative Review",
+        "year": 2021,
+        "type": "review",
+        "doi": "https://doi.org/10.3390/nu13082661",
+        "venue": "Nutrients",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W3213261774",
+        "title": "The impact of nutrition on the development and progression of peripheral artery disease: A systematic review",
+        "year": 2021,
+        "type": "review",
+        "doi": "https://doi.org/10.1016/j.clnu.2021.11.005",
+        "venue": "Clinical Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W3096988636",
+        "title": "The Effect of the Mediterranean Diet on Metabolic Health: A Systematic Review and Meta-Analysis of Controlled Trials in Adults",
+        "year": 2020,
+        "type": "review",
+        "doi": "https://doi.org/10.3390/nu12113342",
+        "venue": "Nutrients",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W3017320748",
+        "title": "Dietary Factors and Risks of Cardiovascular Diseases: An Umbrella Review",
+        "year": 2020,
+        "type": "article",
+        "doi": "https://doi.org/10.3390/nu12041088",
+        "venue": "Nutrients",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W3045667343",
+        "title": "High variability of food and nutrient intake exists across the Mediterranean Dietary Pattern—A systematic review",
+        "year": 2020,
+        "type": "review",
+        "doi": "https://doi.org/10.1002/fsn3.1784",
+        "venue": "Food Science & Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2914823832",
+        "title": "Mediterranean diet, cardiovascular disease and mortality in diabetes: A systematic review and meta-analysis of prospective cohort studies and randomized clinical trials",
+        "year": 2019,
+        "type": "review",
+        "doi": "https://doi.org/10.1080/10408398.2019.1565281",
+        "venue": "Critical Reviews in Food Science and Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2972375267",
+        "title": "Dietary Patterns and Cardiometabolic Outcomes in Diabetes: A Summary of Systematic Reviews and Meta-Analyses",
+        "year": 2019,
+        "type": "review",
+        "doi": "https://doi.org/10.3390/nu11092209",
+        "venue": "Nutrients",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2943702570",
+        "title": "Effects of a Paleolithic Diet on Cardiovascular Disease Risk Factors: A Systematic Review and Meta-Analysis of Randomized Controlled Trials",
+        "year": 2019,
+        "type": "review",
+        "doi": "https://doi.org/10.1093/advances/nmz007",
+        "venue": "Advances in Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2981283194",
+        "title": "Processed meat intake and chronic disease morbidity and mortality: An overview of systematic reviews and meta-analyses",
+        "year": 2019,
+        "type": "review",
+        "doi": "https://doi.org/10.1371/journal.pone.0223883",
+        "venue": "PLoS ONE",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2768883102",
+        "title": "Adherence to Mediterranean Diet Reduces Incident Frailty Risk: Systematic Review and Meta‐Analysis",
+        "year": 2018,
+        "type": "review",
+        "doi": "https://doi.org/10.1111/jgs.15251",
+        "venue": "Journal of the American Geriatrics Society",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2612135195",
+        "title": "Mediterranean diet and multiple health outcomes: an umbrella review of meta-analyses of observational studies and randomised trials",
+        "year": 2017,
+        "type": "article",
+        "doi": "https://doi.org/10.1038/ejcn.2017.58",
+        "venue": "European Journal of Clinical Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2768758048",
+        "title": "Mediterranean diet and cardiovascular disease: a systematic review and meta-analysis of observational studies",
+        "year": 2017,
+        "type": "review",
+        "doi": "https://doi.org/10.1007/s00394-017-1582-0",
+        "venue": "European Journal of Nutrition",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2605486768",
+        "title": "The Diet and Haemodialysis Dyad: Three Eras, Four Open Questions and Four Paradoxes. A Narrative Review, Towards a Personalized, Patient-Centered Approach",
+        "year": 2017,
+        "type": "review",
+        "doi": "https://doi.org/10.3390/nu9040372",
+        "venue": "Nutrients",
+        "kind": "review"
+      },
+      {
+        "id": "https://openalex.org/W2752613509",
+        "title": "Risk Factors for Knee Injury in Golf: A Systematic Review",
+        "year": 2017,
+        "type": "review",
+        "doi": "https://doi.org/10.1007/s40279-017-0780-5",
+        "venue": "Sports Medicine",
+        "kind": "review"
+      }
+    ],
+    "source": "cache"
+  },
+  "explained_from": "evidence\\traces\\live-zetaris_2026-10-25T13-28-03-708Z_audit-all.result.json"
+}

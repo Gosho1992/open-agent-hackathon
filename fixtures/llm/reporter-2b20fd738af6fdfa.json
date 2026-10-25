@@ -1,0 +1,313 @@
+{
+  "text": "After excluding the retracted trial and keeping a study with an expression of concern, the recalculated effect on all-cause mortality shows no meaningful shift in direction or statistical significance, and the new estimate falls within the original confidence interval. An independent verification confirms this recalculated result. Reviewers should weigh the implications of the flagged study for the overall certainty of the evidence and consider whether the shifted estimate alters the clinical interpretation.",
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "provider": "nightshift->openrouter",
+  "ms": 7745,
+  "replayed": false,
+  "label": "Nemotron 3 Ultra (Free)",
+  "receipt": "rcpt_req_w4rsb4ei",
+  "receipt_envelope": {
+    "body": {
+      "llama_cpp_ref": "08659901c43b51de735740f1cf61bb82fbe0c4e4",
+      "manifest_hash": "",
+      "receipt": {
+        "app": "aftershock",
+        "app_policy": {
+          "app": "aftershock",
+          "cross_check": "auto",
+          "has_rule": true,
+          "lanes": null,
+          "mode_coerced": false,
+          "premium_budget": null,
+          "privacy": "cloud-ok",
+          "race_width": 6,
+          "requested_mode": "auto",
+          "routed_mode": "auto"
+        },
+        "autopilot": {
+          "ctx_dropped": [],
+          "ctx_unfilterable": false,
+          "envelope": {
+            "allocatable_mb": 0,
+            "pressure": "unknown",
+            "remaining_mb": 0,
+            "used_mb": 0
+          },
+          "needs": {
+            "coding": true,
+            "tools": false,
+            "vision": false
+          },
+          "prompt_tokens": 331,
+          "scout": {
+            "candidates": [
+              {
+                "id": "CODE_CLONER",
+                "score": 9
+              },
+              {
+                "id": "RELEASE_MANAGER",
+                "score": 7
+              },
+              {
+                "id": "EDIT",
+                "score": 6
+              }
+            ],
+            "category": "Code Ops",
+            "confident": false,
+            "mode": "CODE_CLONER",
+            "ms": 6.11,
+            "score": 9,
+            "source": "detected",
+            "tier": "B"
+          },
+          "tier_hint": null,
+          "why": [
+            "scout read CODE_CLONER (not confident — no tier opinion)",
+            "a coder is preferred",
+            "~331 prompt tokens — lanes whose slot cannot hold them are not asked"
+          ]
+        },
+        "bar": null,
+        "budget_degrade": null,
+        "cache": {
+          "losers_reclaimed": 0,
+          "partials_reclaimed": 0,
+          "status": "miss"
+        },
+        "consensus": {
+          "agree": 1,
+          "coherence": null,
+          "detail": "answered by a top-tier model",
+          "label": "frontier answer",
+          "level": "solo",
+          "raced": 1,
+          "tone": "blue",
+          "verified": null
+        },
+        "consensus_escalation": null,
+        "cost": {
+          "actual_usd": 0,
+          "baseline": {
+            "label": "Kimi K3",
+            "model": "openrouter/moonshotai/kimi-k3",
+            "source": "mode-default-frontier"
+          },
+          "naive_usd": 0.010587,
+          "race_overhead_usd": 0,
+          "verifier_usd": 0
+        },
+        "created_at": 1792935507542,
+        "cross_check": {
+          "app": "aftershock",
+          "blocking": false,
+          "checks": [
+            {
+              "message": "No destructive ops detected.",
+              "status": "passed",
+              "type": "destructive_action"
+            },
+            {
+              "message": "No PII/credential detected in response.",
+              "status": "passed",
+              "type": "pii_guard"
+            },
+            {
+              "message": "Not a tool call.",
+              "status": "skipped",
+              "type": "schema_validity"
+            },
+            {
+              "message": "Factual claim requested but response lacks citation markers.",
+              "status": "warning",
+              "type": "citation_consistency"
+            }
+          ],
+          "destructive": false,
+          "raw_risk": "medium",
+          "recommended_action": "show_warning",
+          "reflex_ms": 0.13,
+          "requires_review": false,
+          "risk_level": "medium",
+          "status": "warning",
+          "verifier": "deterministic/schema+regex",
+          "verifier_error": null,
+          "verifier_model": null,
+          "verifier_ms": 0,
+          "verifier_ran": false,
+          "verifier_tokens": null,
+          "verifier_verdict": null
+        },
+        "debate": null,
+        "decision_id": "req_w4rsb4ei",
+        "deliberation": null,
+        "egress": {
+          "coverage": "pattern_floor",
+          "destination": "openrouter",
+          "never_eligible": [],
+          "sent": {
+            "context_sources": [
+              "messages",
+              "hmem:3 records"
+            ],
+            "prompt_chars": 976,
+            "redacted": []
+          },
+          "withheld": []
+        },
+        "eligible": null,
+        "error": "",
+        "fusion": null,
+        "gen_verifier": null,
+        "graded_weight": null,
+        "hmem": {
+          "ids": [
+            "mem_mvnvi5lp_o25d",
+            "mem_mvnvhpsm_jnd3",
+            "mem_mvnvhwdp_kwwv"
+          ],
+          "injected": 3,
+          "reason": "retrieved 3 memories",
+          "strategy": "comprehensive",
+          "top_score": 0.697
+        },
+        "host_pressure": {
+          "battery": null,
+          "pressure": {
+            "battery": {
+              "hard": 0.5,
+              "label": "nominal",
+              "score": 0.18,
+              "sensor": "battery%, charging",
+              "soft": 0.3
+            },
+            "cpu": {
+              "hard": 0.9,
+              "label": "nominal",
+              "score": 0.34,
+              "sensor": "30s load avg",
+              "soft": 0.7
+            },
+            "gpu": {
+              "hard": 0.92,
+              "label": "nominal",
+              "score": 0.38,
+              "sensor": "GPU + VRAM",
+              "soft": 0.75
+            },
+            "memory": {
+              "hard": 0.85,
+              "label": "warm",
+              "score": 0.51,
+              "sensor": "committed/swap",
+              "soft": 0.7
+            },
+            "network": {
+              "hard": 0.85,
+              "label": "nominal",
+              "score": 0.12,
+              "sensor": "RTT to providers",
+              "soft": 0.5
+            },
+            "quota": {
+              "hard": 0.95,
+              "label": "nominal",
+              "score": 0.28,
+              "sensor": "per-key window",
+              "soft": 0.8
+            },
+            "thermal": {
+              "hard": 0.8,
+              "label": "nominal",
+              "score": 0.22,
+              "sensor": "thermal API",
+              "soft": 0.55
+            }
+          },
+          "thermal": "nominal"
+        },
+        "job": null,
+        "mcp": null,
+        "method": null,
+        "mode": "auto",
+        "optimistic": null,
+        "phases": [
+          {
+            "coherence": null,
+            "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+            "ms": 5034,
+            "outputTps": 108.46245530393324,
+            "phase": "final_synthesis",
+            "reflex_decided_in_ms": 0.2,
+            "tier": "C",
+            "tokensIn": 799,
+            "tokensOut": 546
+          }
+        ],
+        "privacy": {
+          "path": "cloud-ok",
+          "redaction": {
+            "applied": false,
+            "spans": 0
+          }
+        },
+        "prompt_preview": "Liyanage 2016 (PLoS One 2016), outcome: All-cause mortality.\nPublished (Fixed MH): RR 1.00 (95% CI 0.86 to 1.15); Aftershock reproduced it from the study table as RR 1.00 (95% CI 0",
+        "quality_race": null,
+        "reasoning_scaffold": null,
+        "receipt_id": "rcpt_req_w4rsb4ei",
+        "refine": null,
+        "request_id": "chatcmpl-5349d022-4033-4908-9b68-6cf8a5fe4601",
+        "requested_mode": "meterless/auto",
+        "routing": {
+          "confidence": null,
+          "escalated": null,
+          "escalated_on_divergence": false,
+          "hedge": null,
+          "hedges_skipped": 0,
+          "of": 1,
+          "policy": "learned-router",
+          "predicted": "openrouter/moonshotai/kimi-k3",
+          "reason": "single-candidate",
+          "width": 1,
+          "winner": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+        },
+        "savings": {
+          "amount": 0.010587,
+          "baseline_source": "mode-default-frontier",
+          "currency": "USD",
+          "vs": "Kimi K3"
+        },
+        "schema": "meterless.compute_receipt.v1",
+        "score": null,
+        "scorecard": null,
+        "status": "ok",
+        "summary": "ok · Nemotron 3 Ultra (Free) · miss · $0.0106 saved",
+        "synthesis": null,
+        "test_time_compute": null,
+        "tool_degraded": null,
+        "unmet": null,
+        "usage": {
+          "input_tokens": 799,
+          "latency_ms": 5034,
+          "output_tokens": 546,
+          "output_tps": 108.46245530393324,
+          "total_tokens": 1345
+        },
+        "verdict": null,
+        "verification": null,
+        "winning_route": {
+          "kind": "cloud",
+          "label": "Nemotron 3 Ultra (Free)",
+          "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+          "provider": "openrouter",
+          "tier": "C"
+        }
+      },
+      "signer": "meterlessd",
+      "ts_ms": 1792935507557
+    },
+    "pubkey_b64": "BNq9bhImjiU2WpMICZsCMqJqHs23MgkFyzn8XQuVXu8=",
+    "sig_b64": "KKLeOzGF+SFhBkMupwhf3dOq9/r+0wyymejWFzG+GUbpJXlCPj6imMcjYmu4Mq7K/jww8QqYlmALvWp0WF7cCw=="
+  }
+}
