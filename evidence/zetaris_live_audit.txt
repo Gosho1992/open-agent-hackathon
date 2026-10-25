@@ -2,24 +2,18 @@
 .env not found. Continuing without it.
 
   outcome               published                        recalculated                     verdict              VITALITY
-  MACE                  -                                -                                NEEDS_HUMAN_REVIEW   -
-  Coronary events       -                                -                                NEEDS_HUMAN_REVIEW   -
-  Stroke                -                                -                                NEEDS_HUMAN_REVIEW   -
-  CVD mortality         -                                -                                NEEDS_HUMAN_REVIEW   -
-  All-cause mortality   -                                -                                NEEDS_HUMAN_REVIEW   -
-  Heart failure         -                                -                                NEEDS_HUMAN_REVIEW   -
+  MACE                  RR 0.63 (0.53-0.75)              RR 0.43 (0.32-0.58)              ESTIMATE_SHIFTED     agrees
+  Coronary events       RR 0.65 (0.50-0.85)              RR 0.50 (0.34-0.72)              NO_CHANGE_DETECTED   agrees
+  Stroke                RR 0.65 (0.48-0.88)              RR 0.49 (0.23-1.05)              SIGNIFICANCE_LOST    agrees
+  CVD mortality         RR 0.90 (0.72-1.11)              RR 0.88 (0.69-1.13)              NO_CHANGE_DETECTED   agrees
+  All-cause mortality   RR 1.00 (0.86-1.15)              RR 0.99 (0.81-1.21)              NO_CHANGE_DETECTED   agrees
+  Heart failure         RR 0.30 (0.17-0.56)              RR 0.30 (0.16-0.56)              NO_CHANGE_DETECTED   n/a
 
-  MACE: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
+  Impact (candidates for human review): cited by 209 works, 200 scanned. Title-matched: 4 guideline-type documents, 30 later reviews.
+    - [guideline?] 2024 Eurasian clinical practice guidelines for dietary management of cardiovascular diseases (2024)
+    - [guideline?] 2023 Japan Atherosclerosis Society (JAS) Guidelines for Prevention of Atherosclerotic Cardiovascular Diseases 2022
+    - [guideline?] 2018 Practical Dietary Recommendations for the Prevention and Management of Nonalcoholic Fatty Liver Disease in Adu
+    - [guideline?] 2018 Document of recommendations of the SEA 2018. Lifestyle in cardiovascular prevention
 
-  Coronary events: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
-
-  Stroke: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
-
-  CVD mortality: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
-
-  All-cause mortality: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
-
-  Heart failure: NEEDS HUMAN REVIEW - audit could not run safely: Zetaris HTTP 400: {"msg":"Activation query column count (9) doesn't match USL declared schema (14) for 'published_estimate'. Output: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci], OriginalSchema: [row_id, review_doi, outcome, scenario, method, measure, es, lci, uci, printed_treat_events, prin
-
-  trace:  /workspaces/open-agent-hackathon/.aftershock/traces/2026-10-25T13-25-59-323Z_audit-all.jsonl
-  result: /workspaces/open-agent-hackathon/.aftershock/traces/2026-10-25T13-25-59-323Z_audit-all.result.json
+  trace:  /workspaces/open-agent-hackathon/.aftershock/traces/2026-10-25T13-28-03-708Z_audit-all.jsonl
+  result: /workspaces/open-agent-hackathon/.aftershock/traces/2026-10-25T13-28-03-708Z_audit-all.result.json
