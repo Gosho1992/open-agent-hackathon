@@ -110,6 +110,12 @@ CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs the tests, the H-
 
 ## Run it
 
+**Dependencies**
+
+- Node.js 22+ and npm, plus git (`npm run setup` uses it to vendor the Meterless H-MEM reference engine). No runtime npm dependencies; dev tools are `tsx`, `typescript` and `@types/node`. Tested on Windows 11 and Ubuntu (CI).
+- Sample mode needs nothing else.
+- Live mode also needs a running Zetaris platform (Docker; we ran it in a GitHub Codespace) and Meterless Nightshift on `127.0.0.1:8088` with a token in `.env`.
+
 **Sample mode: no services, no keys (for judges)**
 
 ```bash
